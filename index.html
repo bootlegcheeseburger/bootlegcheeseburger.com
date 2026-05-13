@@ -1,147 +1,809 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Bootleg Cheeseburger</title>
-<meta name="description" content="A small software studio. Tools for film post-production, pro audio, and other narrow weirdness.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='52' font-size='52'%3E%F0%9F%8D%94%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-<header class="masthead">
-  <div class="wrap">
-    <a class="brand" href="/">
-      <img class="brand-mark" src="assets/blc.png" alt="" width="36" height="36">
-      <span class="brand-name">Bootleg Cheeseburger</span>
-    </a>
-    <nav>
-      <a href="#apps">Apps</a>
-      <a href="#about">About</a>
-      <a href="mailto:dan@dantimmons.net">Contact</a>
-    </nav>
-  </div>
-</header>
-
-<section class="hero">
-  <div class="wrap hero-wrap">
-    <img class="hero-logo" src="assets/blc.png" alt="Bootleg Cheeseburger" width="320" height="290">
-    <div class="hero-text">
-      <h1>Bootleg Cheeseburger makes <em>small Mac apps</em> for film post and pro audio.</h1>
-      <p class="lede">Tools built scratching one specific itch, then polished until they're worth shipping. Six in development right now.</p>
-      <a class="hero-cta" href="#apps">See the apps <span aria-hidden="true">&darr;</span></a>
-    </div>
-  </div>
-</section>
-
-<main id="apps">
-
-  <article class="showcase showcase--notetaken" data-side="right">
-    <div class="wrap showcase-wrap">
-      <div class="showcase-art">
-        <img src="assets/notetaken.png" alt="" width="320" height="320">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Bootleg Cheeseburger</title>
+    <meta
+      name="description"
+      content="A small software studio. Tools for film post-production, pro audio, and other narrow weirdness."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='52' font-size='52'%3E%F0%9F%8D%94%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="masthead">
+      <div class="wrap">
+        <a class="brand" href="/">
+          <img
+            class="brand-mark"
+            src="assets/blc-big.png"
+            alt=""
+            width="36"
+            height="36"
+          />
+          <span class="brand-name">bootleg cheeseburger</span>
+        </a>
+        <nav>
+          <div class="nav-apps">
+            <a href="#apps" class="nav-apps-trigger"
+              >Apps <span class="nav-caret" aria-hidden="true">&#9662;</span></a
+            >
+            <div class="nav-apps-menu" role="menu">
+              <a href="#app-notetaken" role="menuitem">
+                <img src="assets/notetaken.png" alt="" /> <span>NoteTaken</span>
+              </a>
+              <a href="#app-moair" role="menuitem">
+                <img src="assets/moair.png" alt="" /> <span>MoAir</span>
+              </a>
+              <a href="#app-flocha" role="menuitem" class="draft">
+                <img src="assets/flocha.png" alt="" /> <span>FloCha</span>
+              </a>
+              <a href="#app-plupdate" role="menuitem">
+                <img src="assets/plupdate.png" alt="" /> <span>plupdate!</span>
+              </a>
+              <a href="#app-streampec" role="menuitem">
+                <img src="assets/streampec.png" alt="" /> <span>StreamPEC</span>
+              </a>
+              <a
+                href="https://ucsify.com"
+                role="menuitem"
+                class="draft"
+                target="_blank"
+                rel="noopener"
+              >
+                <img src="assets/ucsify.png" alt="" /> <span>ucsify</span>
+              </a>
+            </div>
+          </div>
+          <a href="#about">About</a>
+          <a href="mailto:dan@dantimmons.net">Contact</a>
+          <a
+            class="nav-gh"
+            href="https://github.com/bootlegcheeseburger"
+            target="_blank"
+            rel="noopener"
+            aria-label="Bootleg Cheeseburger on GitHub"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              width="20"
+              height="20"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.87-1.54-3.87-1.54-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.34.95.1-.74.4-1.24.72-1.53-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.17a11 11 0 0 1 5.79 0c2.21-1.48 3.17-1.17 3.17-1.17.63 1.59.24 2.76.12 3.05.74.8 1.18 1.82 1.18 3.08 0 4.42-2.69 5.4-5.25 5.68.41.36.78 1.06.78 2.13 0 1.54-.01 2.78-.01 3.16 0 .31.21.67.8.55C20.71 21.38 24 17.07 24 12 24 5.65 18.85.5 12 .5Z"
+              />
+            </svg>
+          </a>
+        </nav>
       </div>
-      <div class="showcase-text">
-        <div class="showcase-eyebrow">macOS &middot; Private beta</div>
-        <h2 class="showcase-title">NoteTaken</h2>
-        <p class="showcase-tag">Timecoded notes for film post.</p>
-        <p>ADR, Foley, music, background, custom cues - all anchored to timecode, all in one .notek bundle. Pro Tools PTSL integration. Local-first. Built for editors and supervisors who keep losing their notes in a thousand text files.</p>
-        <a class="btn" href="mailto:dan@dantimmons.net?subject=NoteTaken%20beta">Request beta access &rarr;</a>
-      </div>
-    </div>
-  </article>
+    </header>
 
-  <article class="showcase showcase--moair" data-side="left">
-    <div class="wrap showcase-wrap">
-      <div class="showcase-art">
-        <img src="assets/moair.png" alt="" width="320" height="320">
+    <section class="hero">
+      <div class="wrap hero-wrap">
+        <img
+          class="hero-logo"
+          src="assets/blc-big.png"
+          alt="Bootleg Cheeseburger"
+          width="320"
+          height="290"
+        />
+        <div class="hero-text">
+          <h1>
+            bootleg cheeseburger makes <em>helpful apps</em> for film post and
+            pro audio.
+          </h1>
+          <p class="lede">
+            We baked a delicious tray of apps for ourselves, but they were too
+            good not to share. Local-first, privacy-respecting, and bloat-free.
+          </p>
+          <a class="hero-cta" href="#apps"
+            >See the apps <span aria-hidden="true">&darr;</span></a
+          >
+        </div>
       </div>
-      <div class="showcase-text">
-        <div class="showcase-eyebrow">macOS &middot; Coming soon</div>
-        <h2 class="showcase-title">MoAir</h2>
-        <p class="showcase-tag">AirPods Max, but pro.</p>
-        <p>A menu-bar utility that turns AirPods Max into a head-tracking, dB-calibrated, codec-readout pro-audio rig. Live OSC out, USB-C wired tracking, and a connection panel that finally tells you what you're actually listening to.</p>
-        <a class="btn" href="mailto:dan@dantimmons.net?subject=MoAir">Get notified &rarr;</a>
-      </div>
-    </div>
-  </article>
+    </section>
 
-  <article class="showcase showcase--flocha" data-side="right">
-    <div class="wrap showcase-wrap">
-      <div class="showcase-art">
-        <img src="assets/flocha.png" alt="" width="320" height="320">
-      </div>
-      <div class="showcase-text">
-        <div class="showcase-eyebrow">macOS &middot; Open beta</div>
-        <h2 class="showcase-title">FloCha</h2>
-        <p class="showcase-tag">See your session, finally.</p>
-        <p>A signal-flow visualizer for Pro Tools. Tracks, buses, sends, VCAs, group memberships - rendered as a flowchart so you can spot dead ends and mis-mappings before the mix engineer does.</p>
-        <a class="btn" href="mailto:dan@dantimmons.net?subject=FloCha%20beta">Join the open beta &rarr;</a>
-      </div>
-    </div>
-  </article>
+    <main id="apps">
+      <article
+        id="app-notetaken"
+        class="showcase showcase--notetaken"
+        data-side="right"
+      >
+        <div class="wrap showcase-wrap">
+          <div class="showcase-art has-screens">
+            <img
+              class="reveal"
+              src="assets/notetaken.png"
+              alt=""
+              width="320"
+              height="320"
+            />
+            <div class="showcase-screens" aria-hidden="true">
+              <img
+                src="assets/screenshots/notetaken/01.png"
+                alt=""
+                loading="lazy"
+              />
+            </div>
+          </div>
+          <div class="showcase-text">
+            <div class="showcase-eyebrow">macOS &middot; Private beta</div>
+            <h2 class="showcase-title">NoteTaken</h2>
+            <p class="showcase-tag">Timecoded notes for post sound.</p>
+            <p class="public-only">
+              Take notes like a champ. Currently in private beta.
+            </p>
+            <p class="draft-only">
+              Take notes like a champ. Import from email, Google Docs, or Pro
+              Tools - timecodes auto-detected, sorted by department or note
+              giver. Locks to Pro Tools with a click: no MIDI, no HUI, no
+              Satellite. Conform to new picture; export to PDF, Excel,
+              plaintext, or back to Pro Tools as clips and markers.
+            </p>
+            <div class="beta-form-wrap">
+              <button type="button" class="btn" data-toggle-form>
+                Request beta access &rarr;
+              </button>
+              <form
+                class="beta-form"
+                action="https://script.google.com/macros/s/AKfycbxn63tmkZYvL8M62DTeTk--fYDHcNjtqVbUTvH5U-WHWTjn1cv-zZwwzpn-CxNW4h2G8w/exec"
+                method="POST"
+                hidden
+              >
+                <input type="hidden" name="form" value="NoteTaken beta" />
+                <label class="beta-field">
+                  <span>Name</span>
+                  <input name="name" type="text" required autocomplete="name" />
+                </label>
+                <label class="beta-field">
+                  <span>Email</span>
+                  <input
+                    name="email"
+                    type="email"
+                    required
+                    autocomplete="email"
+                  />
+                </label>
+                <label class="beta-field">
+                  <span>What you do</span>
+                  <input
+                    name="position"
+                    type="text"
+                    required
+                    placeholder="Sound editor, re-recording mixer, supervisor..."
+                  />
+                </label>
+                <button type="submit" class="btn">Send request &rarr;</button>
+                <p class="beta-error" hidden>
+                  Something went wrong. Email
+                  <a href="mailto:dan@dantimmons.net?subject=NoteTaken%20beta"
+                    >dan@dantimmons.net</a
+                  >
+                  instead.
+                </p>
+              </form>
+              <p class="beta-success" hidden>
+                Got it. I'll be in touch shortly.
+              </p>
+            </div>
+          </div>
+        </div>
+      </article>
 
-  <article class="showcase showcase--plupdate" data-side="left">
-    <div class="wrap showcase-wrap">
-      <div class="showcase-art">
-        <img src="assets/plupdate.png" alt="" width="320" height="320">
-      </div>
-      <div class="showcase-text">
-        <div class="showcase-eyebrow">macOS &middot; Open source</div>
-        <h2 class="showcase-title">plupdate</h2>
-        <p class="showcase-tag">Plugin updates, finally sane.</p>
-        <p>Scans your installed audio plugins, cross-checks a crowdsourced database, and tells you what's actually out of date. No trawling twenty vendor sites. No "is iLok still online?" Just a list.</p>
-        <a class="btn" href="mailto:dan@dantimmons.net?subject=plupdate">Get notified &rarr;</a>
-      </div>
-    </div>
-  </article>
+      <article id="app-moair" class="showcase showcase--moair" data-side="left">
+        <div class="wrap showcase-wrap">
+          <div class="showcase-art has-screens">
+            <img
+              class="reveal"
+              src="assets/moair.png"
+              alt=""
+              width="320"
+              height="320"
+            />
+            <div class="showcase-screens" aria-hidden="true">
+              <img
+                src="assets/screenshots/moair/01.png"
+                alt=""
+                loading="lazy"
+              />
+            </div>
+          </div>
+          <div class="showcase-text">
+            <div class="showcase-eyebrow">macOS &middot; Coming soon</div>
+            <h2 class="showcase-title">MoAir</h2>
+            <p class="showcase-tag">AirPods Max, but pro.</p>
+            <p>
+              A menu-bar utility that turns AirPods Max into a head-tracking,
+              dB-calibrated, professional-quality audio interface. Instant OSC
+              connections to every popular head-tracking app, plus fine-tuning -
+              one click and you're patched in. Also works with AirPods (buds)
+              without the calibration.
+            </p>
+            <div class="btn-split">
+              <a
+                class="btn-split__gh"
+                href="https://github.com/bootlegcheeseburger/moair"
+                target="_blank"
+                rel="noopener"
+                aria-label="MoAir on GitHub"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.87-1.54-3.87-1.54-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.34.95.1-.74.4-1.24.72-1.53-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.17a11 11 0 0 1 5.79 0c2.21-1.48 3.17-1.17 3.17-1.17.63 1.59.24 2.76.12 3.05.74.8 1.18 1.82 1.18 3.08 0 4.42-2.69 5.4-5.25 5.68.41.36.78 1.06.78 2.13 0 1.54-.01 2.78-.01 3.16 0 .31.21.67.8.55C20.71 21.38 24 17.07 24 12 24 5.65 18.85.5 12 .5Z"
+                  />
+                </svg>
+              </a>
+              <a
+                class="btn btn--download"
+                href="https://github.com/bootlegcheeseburger/moair/releases/latest"
+                data-repo="bootlegcheeseburger/moair"
+                target="_blank"
+                rel="noopener"
+              >
+                <svg
+                  class="apple-mark"
+                  viewBox="0 0 24 24"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01ZM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25Z"
+                  />
+                </svg>
+                <span class="btn-version-label">Download</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
 
-  <article class="showcase showcase--streampec" data-side="right">
-    <div class="wrap showcase-wrap">
-      <div class="showcase-art">
-        <div class="showcase-mono">SP</div>
+      <article
+        id="app-flocha"
+        class="showcase showcase--flocha draft"
+        data-side="right"
+      >
+        <div class="wrap showcase-wrap">
+          <div class="showcase-art">
+            <img
+              class="reveal"
+              src="assets/flocha.png"
+              alt=""
+              width="320"
+              height="320"
+            />
+          </div>
+          <div class="showcase-text">
+            <div class="showcase-eyebrow">macOS &middot; Open beta</div>
+            <h2 class="showcase-title">FloCha</h2>
+            <p class="showcase-tag">See your session, finally.</p>
+            <p>
+              A signal-flow visualizer for Pro Tools. Tracks, buses, sends,
+              VCAs, group memberships - rendered as a flowchart so you can spot
+              dead ends and mis-mappings before the mixer does.
+            </p>
+            <a
+              class="btn"
+              href="mailto:dan@dantimmons.net?subject=FloCha%20beta"
+              >Join the open beta &rarr;</a
+            >
+          </div>
+        </div>
+      </article>
+
+      <article
+        id="app-plupdate"
+        class="showcase showcase--plupdate"
+        data-side="left"
+      >
+        <div class="wrap showcase-wrap">
+          <div class="showcase-art has-screens">
+            <img
+              class="reveal"
+              src="assets/plupdate.png"
+              alt=""
+              width="320"
+              height="320"
+            />
+            <div class="showcase-screens" aria-hidden="true">
+              <img
+                src="assets/screenshots/plupdate/01.png"
+                alt=""
+                loading="lazy"
+              />
+            </div>
+          </div>
+          <div class="showcase-text">
+            <div class="showcase-eyebrow">macOS &middot; Coming soon</div>
+            <h2 class="showcase-title">plupdate!</h2>
+            <p class="showcase-tag">One check, every plugin.</p>
+            <p class="public-only">Coming soon.</p>
+            <p class="draft-only">
+              Scans your AAX plugin folder, checks each version against a
+              community-maintained database, flags what's behind. Open source,
+              runs locally.
+            </p>
+            <div class="beta-form-wrap">
+              <div class="btn-split">
+                <a
+                  class="btn-split__gh"
+                  href="https://github.com/bootlegcheeseburger/plupdate"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="plupdate! on GitHub"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="18"
+                    height="18"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.87-1.54-3.87-1.54-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.34.95.1-.74.4-1.24.72-1.53-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.17a11 11 0 0 1 5.79 0c2.21-1.48 3.17-1.17 3.17-1.17.63 1.59.24 2.76.12 3.05.74.8 1.18 1.82 1.18 3.08 0 4.42-2.69 5.4-5.25 5.68.41.36.78 1.06.78 2.13 0 1.54-.01 2.78-.01 3.16 0 .31.21.67.8.55C20.71 21.38 24 17.07 24 12 24 5.65 18.85.5 12 .5Z"
+                    />
+                  </svg>
+                </a>
+                <button type="button" class="btn" data-toggle-form>
+                  Get notified &rarr;
+                </button>
+              </div>
+              <form
+                class="beta-form"
+                action="https://script.google.com/macros/s/AKfycbxn63tmkZYvL8M62DTeTk--fYDHcNjtqVbUTvH5U-WHWTjn1cv-zZwwzpn-CxNW4h2G8w/exec"
+                method="POST"
+                hidden
+              >
+                <input type="hidden" name="form" value="plupdate notify" />
+                <label class="beta-field">
+                  <span>Email</span>
+                  <input
+                    name="email"
+                    type="email"
+                    required
+                    autocomplete="email"
+                  />
+                </label>
+                <button type="submit" class="btn">Notify me &rarr;</button>
+                <p class="beta-error" hidden>
+                  Something went wrong. Email
+                  <a href="mailto:dan@dantimmons.net?subject=plupdate"
+                    >dan@dantimmons.net</a
+                  >
+                  instead.
+                </p>
+              </form>
+              <p class="beta-success" hidden>You're on the list.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article
+        id="app-streampec"
+        class="showcase showcase--streampec"
+        data-side="right"
+      >
+        <div class="wrap showcase-wrap">
+          <div class="showcase-art">
+            <img
+              class="reveal"
+              src="assets/streampec.png"
+              alt=""
+              width="320"
+              height="320"
+            />
+          </div>
+          <div class="showcase-text">
+            <div class="showcase-eyebrow">macOS &middot; Coming soon</div>
+            <h2 class="showcase-title">StreamPEC</h2>
+            <p class="showcase-tag">PEC-Direct for the rest of us.</p>
+            <p>
+              Instantly turns your Streamdeck into PEC paddles. Talks to the
+              Streamdeck and Pro Tools directly with no extra bloat or messy
+              config. Just run it and put your Pro Tools record tracks in a
+              folder called "print" (or configure your own template). Boom.
+              Punched.
+            </p>
+            <div class="btn-split">
+              <a
+                class="btn-split__gh"
+                href="https://github.com/bootlegcheeseburger/streampec-releases"
+                target="_blank"
+                rel="noopener"
+                aria-label="StreamPEC releases on GitHub"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.87-1.54-3.87-1.54-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.34.95.1-.74.4-1.24.72-1.53-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.17a11 11 0 0 1 5.79 0c2.21-1.48 3.17-1.17 3.17-1.17.63 1.59.24 2.76.12 3.05.74.8 1.18 1.82 1.18 3.08 0 4.42-2.69 5.4-5.25 5.68.41.36.78 1.06.78 2.13 0 1.54-.01 2.78-.01 3.16 0 .31.21.67.8.55C20.71 21.38 24 17.07 24 12 24 5.65 18.85.5 12 .5Z"
+                  />
+                </svg>
+              </a>
+              <a
+                class="btn btn--download"
+                href="https://github.com/bootlegcheeseburger/streampec-releases/releases/latest"
+                data-repo="bootlegcheeseburger/streampec-releases"
+                target="_blank"
+                rel="noopener"
+              >
+                <svg
+                  class="apple-mark"
+                  viewBox="0 0 24 24"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01ZM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25Z"
+                  />
+                </svg>
+                <span class="btn-version-label">Download</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article
+        id="app-ucsify"
+        class="showcase showcase--ucsify draft"
+        data-side="left"
+      >
+        <div class="wrap showcase-wrap">
+          <div class="showcase-art">
+            <img
+              class="reveal"
+              src="assets/ucsify.png"
+              alt=""
+              width="320"
+              height="320"
+            />
+          </div>
+          <div class="showcase-text">
+            <div class="showcase-eyebrow">Web &middot; Live</div>
+            <h2 class="showcase-title">ucsify</h2>
+            <p class="showcase-tag">UCS naming without the lookup.</p>
+            <p>
+              A free UCS filename generator. Put a sentence in, a UCS-compliant
+              filename for your sound effect comes out. Because I don't want to
+              think about filenames until I absolutely have to.
+            </p>
+            <a class="btn" href="https://ucsify.com">Open ucsify.com &rarr;</a>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <section id="about" class="about">
+      <div class="wrap">
+        <h2 class="section-title">About</h2>
+        <p>
+          <span class="brand-inline"
+            ><img
+              class="brand-inline-mark reveal"
+              src="assets/blc-big.png"
+              alt=""
+            />bootleg cheeseburger</span
+          >
+          is
+          <a
+            class="link-imdb"
+            href="https://imdb.me/dan"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><span class="imdb-badge reveal" aria-hidden="true">IMDb</span>Dan
+            Timmons</a
+          >. I work in and around film post-production and pro audio software.
+          If something here is interesting, or you have a project to talk about,
+          write me at
+          <a class="link-mail" href="mailto:dan@dantimmons.net"
+            ><span class="mail-badge reveal" aria-hidden="true"
+              ><svg
+                viewBox="0 0 20 20"
+                width="13"
+                height="13"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  d="M3 4a2 2 0 0 0-2 2v1.161l8.441 4.221a1.25 1.25 0 0 0 1.118 0L19 7.162V6a2 2 0 0 0-2-2H3Z"
+                />
+                <path
+                  d="m19 8.839-7.77 3.885a2.75 2.75 0 0 1-2.46 0L1 8.839V14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.839Z"
+                /></svg></span
+            >dan@dantimmons.net</a
+          >.
+        </p>
+        <a
+          class="btn-coffee"
+          href="https://buymeacoffee.com/bootlegcheeseburger"
+          target="_blank"
+          rel="noopener"
+        >
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+            <path
+              fill="currentColor"
+              d="M5 8h12a3 3 0 0 1 0 6h-1.05A5 5 0 0 1 11 19H9a5 5 0 0 1-5-5V8h1Zm12 4h.05a1 1 0 0 0 0-2H17v2Z"
+            />
+            <path
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              fill="none"
+              d="M7.5 2c.3.6-.3 1.2-.3 2s.6 1.2.3 2M11 2c.3.6-.3 1.2-.3 2s.6 1.2.3 2M14.5 2c.3.6-.3 1.2-.3 2s.6 1.2.3 2"
+            />
+          </svg>
+          <span>Buy me a cheeseburger</span>
+        </a>
       </div>
-      <div class="showcase-text">
-        <div class="showcase-eyebrow">macOS &middot; Coming soon</div>
-        <h2 class="showcase-title">StreamPec</h2>
-        <p class="showcase-tag">Pec-direct, on a real button.</p>
-        <p>Turns an Elgato Stream Deck into an instant pec-direct paddle box. For dub stages and re-recording mixers who'd rather hit a labelled, lit-up physical key than fish through a software UI mid-pass.</p>
-        <a class="btn" href="mailto:dan@dantimmons.net?subject=StreamPec">Get notified &rarr;</a>
+      <img
+        class="about-portrait reveal"
+        src="assets/dan.png"
+        alt="Dan Timmons"
+      />
+    </section>
+
+    <footer>
+      <div class="wrap">
+        <span>(c) Bootleg Cheeseburger</span>
+        <span><a href="mailto:dan@dantimmons.net">dan@dantimmons.net</a></span>
       </div>
-    </div>
-  </article>
+    </footer>
 
-  <article class="showcase showcase--ucsify" data-side="left">
-    <div class="wrap showcase-wrap">
-      <div class="showcase-art">
-        <div class="showcase-mono">UC</div>
-      </div>
-      <div class="showcase-text">
-        <div class="showcase-eyebrow">Web &middot; Live</div>
-        <h2 class="showcase-title">ucsify</h2>
-        <p class="showcase-tag">UCS naming without the lookup.</p>
-        <p>A web app for naming sound library files using the Universal Category System. Pick a category, name your sound, done. No spreadsheets, no PDF cheat-sheet on a second monitor.</p>
-        <a class="btn" href="https://ucsify.com">Open ucsify.com &rarr;</a>
-      </div>
-    </div>
-  </article>
+    <script>
+      (function () {
+        if (new URLSearchParams(location.search).has("preview")) {
+          document.body.classList.add("preview");
+        }
 
-</main>
+        var hero = document.querySelector(".hero-logo");
+        if (hero) {
+          var heroIO = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (e) {
+                document.body.classList.toggle("scrolled", !e.isIntersecting);
+              });
+            },
+            { rootMargin: "-40px 0px 0px 0px", threshold: 0 },
+          );
+          heroIO.observe(hero);
+        }
 
-<section id="about" class="about">
-  <div class="wrap">
-    <h2 class="section-title">About</h2>
-    <p>Bootleg Cheeseburger is Dan Timmons. I work in and around film post-production and pro audio software. If something here is interesting, or you have a project to talk about, write me at <a href="mailto:dan@dantimmons.net">dan@dantimmons.net</a>.</p>
-  </div>
-</section>
+        var reveals = document.querySelectorAll(".reveal");
+        var revealIO = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) {
+                e.target.classList.add("is-visible");
+                revealIO.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.15, rootMargin: "0px 0px -8% 0px" },
+        );
+        reveals.forEach(function (el) {
+          revealIO.observe(el);
+        });
 
-<footer>
-  <div class="wrap">
-    <span>(c) Bootleg Cheeseburger</span>
-    <span><a href="mailto:dan@dantimmons.net">dan@dantimmons.net</a></span>
-  </div>
-</footer>
+        // Apps dropdown: tap-to-open on touch, hover on desktop
+        var navApps = document.querySelector(".nav-apps");
+        if (navApps) {
+          var trigger = navApps.querySelector(".nav-apps-trigger");
+          trigger.addEventListener("click", function (e) {
+            if (window.matchMedia("(hover: none)").matches) {
+              e.preventDefault();
+              navApps.classList.toggle("open");
+            }
+          });
+          document.addEventListener("click", function (e) {
+            if (!navApps.contains(e.target)) navApps.classList.remove("open");
+          });
+        }
 
-</body>
+        // Latest-release version + direct .dmg link for download buttons
+        document.querySelectorAll("[data-repo]").forEach(function (el) {
+          var repo = el.dataset.repo;
+          if (!repo) return;
+          fetch("https://api.github.com/repos/" + repo + "/releases/latest", {
+            headers: { Accept: "application/vnd.github+json" },
+          })
+            .then(function (r) {
+              if (!r.ok) throw new Error("no release");
+              return r.json();
+            })
+            .then(function (d) {
+              var tag = (d.tag_name || "").trim();
+              if (tag) {
+                var label = el.querySelector(".btn-version-label");
+                if (label) label.textContent = "Download " + tag;
+              }
+              var dmg = (d.assets || []).find(function (a) {
+                return /\.dmg$/i.test(a.name);
+              });
+              if (dmg && dmg.browser_download_url) {
+                el.href = dmg.browser_download_url;
+              }
+            })
+            .catch(function () {
+              /* keep fallback href + "Download" label */
+            });
+        });
+
+        // Beta request forms: toggle open + AJAX submit (Formspree-compatible)
+        document.querySelectorAll(".beta-form-wrap").forEach(function (wrap) {
+          var trigger = wrap.querySelector("[data-toggle-form]");
+          var form = wrap.querySelector(".beta-form");
+          var success = wrap.querySelector(".beta-success");
+          var errorEl = wrap.querySelector(".beta-error");
+          if (!trigger || !form) return;
+          trigger.addEventListener("click", function () {
+            var hideTarget = trigger.closest(".btn-split") || trigger;
+            hideTarget.hidden = true;
+            form.hidden = false;
+            var firstInput = form.querySelector("input:not([type=hidden])");
+            if (firstInput) firstInput.focus();
+          });
+          form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            var submitBtn = form.querySelector("button[type=submit]");
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Sending...";
+            if (errorEl) errorEl.hidden = true;
+            var body = new URLSearchParams();
+            new FormData(form).forEach(function (v, k) {
+              body.append(k, v);
+            });
+            fetch(form.action, { method: "POST", body: body })
+              .then(function (res) {
+                if (!res.ok) throw new Error("bad response");
+                form.hidden = true;
+                if (success) success.hidden = false;
+              })
+              .catch(function () {
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Send request →";
+                if (errorEl) errorEl.hidden = false;
+              });
+          });
+        });
+
+        // Screenshot overlay: cycle on hover, tap-toggle on touch
+        var artWithScreens = document.querySelectorAll(
+          ".showcase-art.has-screens",
+        );
+        artWithScreens.forEach(function (art) {
+          var screens = art.querySelector(".showcase-screens");
+          if (!screens) return;
+          var imgs = Array.prototype.slice.call(
+            screens.querySelectorAll("img"),
+          );
+          if (!imgs.length) return;
+          var idx = 0;
+          var timer = null;
+          function show(i) {
+            imgs.forEach(function (img, n) {
+              img.classList.toggle("is-active", n === i);
+            });
+          }
+          function start() {
+            show(idx);
+            if (imgs.length > 1 && !timer) {
+              timer = setInterval(function () {
+                idx = (idx + 1) % imgs.length;
+                show(idx);
+              }, 2400);
+            }
+          }
+          function stop() {
+            if (timer) {
+              clearInterval(timer);
+              timer = null;
+            }
+            idx = 0;
+            imgs.forEach(function (img) {
+              img.classList.remove("is-active");
+            });
+          }
+          art.addEventListener("mouseenter", start);
+          art.addEventListener("mouseleave", function () {
+            stop();
+            screens.style.removeProperty("--rx");
+            screens.style.removeProperty("--ry");
+          });
+          var tilting = false;
+          art.addEventListener("mousemove", function (e) {
+            if (tilting) return;
+            tilting = true;
+            var cx = e.clientX;
+            var cy = e.clientY;
+            requestAnimationFrame(function () {
+              tilting = false;
+              var r = art.getBoundingClientRect();
+              var px = (cx - r.left) / r.width;
+              var py = (cy - r.top) / r.height;
+              var ry = (0.5 - px) * 22;
+              var rx = (py - 0.5) * 14;
+              screens.style.setProperty("--ry", ry.toFixed(2) + "deg");
+              screens.style.setProperty("--rx", rx.toFixed(2) + "deg");
+            });
+          });
+          art.addEventListener("click", function (e) {
+            if (!window.matchMedia("(hover: none)").matches) return;
+            e.preventDefault();
+            var showing = art.classList.toggle("is-showing");
+            if (showing) start();
+            else {
+              stop();
+              screens.style.removeProperty("--rx");
+              screens.style.removeProperty("--ry");
+            }
+          });
+        });
+
+        // Mark the showcase nearest the viewport center as .is-current
+        var apps = Array.prototype.slice.call(
+          document.querySelectorAll(".showcase"),
+        );
+        if (apps.length) {
+          var scheduled = false;
+          function updateCurrent() {
+            scheduled = false;
+            var center = window.innerHeight / 2;
+            var threshold = window.innerHeight * 0.18;
+            var fadeEnd = window.innerHeight * 0.55;
+            var fadeRange = fadeEnd - threshold;
+            apps.forEach(function (a) {
+              if (a.offsetParent === null) {
+                a.classList.remove("is-current");
+                a.style.setProperty("--cur-op", "0");
+                return;
+              }
+              var title = a.querySelector(".showcase-title");
+              var r = (title || a).getBoundingClientRect();
+              var elCenter = (r.top + r.bottom) / 2;
+              var dist = Math.abs(elCenter - center);
+              if (dist <= threshold) {
+                a.classList.add("is-current");
+                a.style.setProperty("--cur-op", "1");
+              } else if (a.classList.contains("is-current")) {
+                var t = Math.max(0, 1 - (dist - threshold) / fadeRange);
+                a.style.setProperty("--cur-op", t.toFixed(3));
+                if (t <= 0) a.classList.remove("is-current");
+              } else {
+                a.style.setProperty("--cur-op", "0");
+              }
+            });
+          }
+          function onScroll() {
+            if (scheduled) return;
+            scheduled = true;
+            requestAnimationFrame(updateCurrent);
+          }
+          window.addEventListener("scroll", onScroll, { passive: true });
+          window.addEventListener("resize", onScroll);
+          onScroll();
+        }
+      })();
+    </script>
+  </body>
 </html>
