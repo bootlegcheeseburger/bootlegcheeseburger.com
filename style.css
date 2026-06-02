@@ -538,6 +538,31 @@ button.btn {
 }
 .btn-split__gh svg { display: block; }
 
+/* ---- caveat / system-requirements note (auto-hides when empty) ---- */
+.showcase-note {
+  margin-top: 20px;
+}
+.showcase-note:empty { display: none; }
+.showcase-note__label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  opacity: 0.75;
+  margin-bottom: 6px;
+}
+.showcase-note__item {
+  font-size: 14px;
+  color: var(--ink);
+}
+.showcase-note__item + .showcase-note__item::before {
+  content: "\00B7";
+  margin: 0 9px;
+  color: var(--muted);
+}
+
 .nav-gh {
   margin-left: 18px !important;
   display: inline-flex;
