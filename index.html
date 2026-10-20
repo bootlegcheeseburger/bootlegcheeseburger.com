@@ -36,14 +36,14 @@
               <a href="#app-notetaken" role="menuitem">
                 <img src="assets/notetaken.png" alt="" /> <span>NoteTaken</span>
               </a>
+              <a href="#app-stasis" role="menuitem">
+                <img src="assets/stasis.png" alt="" /> <span>Stasis</span>
+              </a>
               <a href="#app-moair" role="menuitem">
                 <img src="assets/moair.png" alt="" /> <span>MoAir</span>
               </a>
               <a href="#app-flocha" role="menuitem" class="draft">
                 <img src="assets/flocha.png" alt="" /> <span>FloCha</span>
-              </a>
-              <a href="/stasis/" role="menuitem" class="draft">
-                <img src="assets/blc-big.png" alt="" /> <span>Stasis</span>
               </a>
               <a href="#app-plupdate" role="menuitem">
                 <img src="assets/plupdate.png" alt="" /> <span>plupdate!</span>
@@ -199,7 +199,83 @@
         </div>
       </article>
 
-      <article id="app-moair" class="showcase showcase--moair" data-side="left">
+      <article
+        id="app-stasis"
+        class="showcase showcase--stasis"
+        data-side="left"
+      >
+        <div class="wrap showcase-wrap">
+          <div class="showcase-art has-screens">
+            <img
+              class="reveal"
+              src="assets/stasis.png"
+              alt=""
+              width="320"
+              height="320"
+            />
+            <div class="showcase-screens" aria-hidden="true">
+              <img
+                src="assets/screenshots/stasis/deck.jpg"
+                alt=""
+                loading="lazy"
+              />
+            </div>
+          </div>
+          <div class="showcase-text">
+            <div class="showcase-eyebrow">macOS &middot; utility</div>
+            <h2 class="showcase-title">Stasis</h2>
+            <p class="showcase-tag">Time flies.</p>
+            <p>
+              Based on a completely unique algorithm that I dreamed up
+              while in music school, Stasis lets you
+              <strong>infinitely slow down</strong> your audio - with
+              <strong>zero pitch change</strong>.<br />
+              <strong>Bonus:</strong> you do so via a <em>(nearly)</em> fully
+              simulated tape deck - go ahead, you can touch the tape
+              and play with time... <em>in real time!</em>
+            </p>
+            <span class="showcase-note__label">Great for</span>
+            <ul class="showcase-list">
+              <li>Musicians who need to practice</li>
+              <li>Sound designers</li>
+              <li>Tape aficionados</li>
+            </ul>
+            <p>Enjoy our introductory price before I add more features!!</p>
+            <div class="buy-row">
+              <button type="button" class="btn" id="stasis-buy" disabled>
+                Buy Stasis &rarr;
+              </button>
+              <span class="buy-price" id="stasis-price"></span>
+            </div>
+            <p class="buy-fine">
+              One-time purchase. 30-day refunds. Sold by Paddle, our Merchant
+              of Record.
+            </p>
+            <div class="stasis-thanks" id="stasis-thanks" aria-live="polite" hidden>
+              <strong>Thank you!</strong>
+              <p id="stasis-thanks-status">Making your serial...</p>
+              <div id="stasis-thanks-ready" hidden>
+                <p>
+                  <span class="serial" id="stasis-serial"></span>
+                  <button type="button" class="serial-copy" id="stasis-copy">Copy</button>
+                </p>
+                <p>
+                  <a id="stasis-download" href="#">Download Stasis</a>, open it,
+                  paste the serial and press Activate. A copy is on its way to
+                  your email.
+                </p>
+              </div>
+            </div>
+            <div class="showcase-note">
+              <span class="showcase-note__label">System requirements</span>
+              <span class="showcase-note__item">macOS 13+</span>
+              <span class="showcase-note__item">Apple silicon</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article id="app-moair" class="showcase showcase--moair" data-side="right">
         <div class="wrap showcase-wrap">
           <div class="showcase-art has-screens">
             <img
@@ -277,7 +353,7 @@
       <article
         id="app-flocha"
         class="showcase showcase--flocha draft"
-        data-side="right"
+        data-side="left"
       >
         <div class="wrap showcase-wrap">
           <div class="showcase-art">
@@ -573,8 +649,13 @@
 
     <footer>
       <div class="wrap">
-        <span>(c) Bootleg Cheeseburger</span>
-        <span><a href="mailto:dan@dantimmons.net">dan@dantimmons.net</a></span>
+        <span>(c) Bootleg Cheeseburger, LLC</span>
+        <span
+          ><a href="terms.html">Terms</a> &middot;
+          <a href="privacy.html">Privacy</a> &middot;
+          <a href="refunds.html">Refunds</a> &middot;
+          <a href="mailto:dan@dantimmons.net">dan@dantimmons.net</a></span
+        >
       </div>
     </footer>
 
@@ -811,6 +892,127 @@
           window.addEventListener("resize", onScroll);
           onScroll();
         }
+      })();
+    </script>
+    <script>
+      // Stasis store. Sandbox now; for launch switch ENV to "production"
+      // and put in the live client token and price id (Paddle sandbox and
+      // live are separate accounts with separate ids).
+      var STORE = {
+        ENV: "sandbox",
+        // Paddle > Developer tools > Authentication > client-side token (test_... in sandbox).
+        CLIENT_TOKEN: "",
+        // The Stasis price (pri_...).
+        PRICE_ID: "",
+        // Shown beside the button until Paddle localises it.
+        PRICE_LABEL: "$29",
+        // The stasis-store worker that turns purchases into serials.
+        WORKER: "https://stasis-store.example.workers.dev",
+      };
+
+      (function () {
+        var buy = document.getElementById("stasis-buy");
+        if (!buy) return;
+        var price = document.getElementById("stasis-price");
+        if (STORE.PRICE_LABEL) price.textContent = STORE.PRICE_LABEL;
+        if (!STORE.CLIENT_TOKEN || !STORE.PRICE_ID) {
+          buy.textContent = "Coming soon";
+          return;
+        }
+
+        // Paddle.js loads only once the store is configured.
+        var s = document.createElement("script");
+        s.src = "https://cdn.paddle.com/paddle/v2/paddle.js";
+        s.onload = init;
+        document.head.appendChild(s);
+
+        function init() {
+          if (STORE.ENV === "sandbox") Paddle.Environment.set("sandbox");
+          Paddle.Initialize({
+            token: STORE.CLIENT_TOKEN,
+            eventCallback: function (e) {
+              if (e.name === "checkout.completed" && e.data) {
+                var email = e.data.customer && e.data.customer.email;
+                fetchSerial(e.data.transaction_id, email);
+              }
+            },
+          });
+          // The localised price for the buyer's country.
+          Paddle.PricePreview({
+            items: [{ priceId: STORE.PRICE_ID, quantity: 1 }],
+          })
+            .then(function (r) {
+              var li = r.data.details.lineItems[0];
+              if (li) price.textContent = li.formattedTotals.total;
+            })
+            .catch(function () {});
+          buy.disabled = false;
+          buy.addEventListener("click", function () {
+            Paddle.Checkout.open({
+              items: [{ priceId: STORE.PRICE_ID, quantity: 1 }],
+              settings: {
+                displayMode: "overlay",
+                theme: "light",
+                allowLogout: false,
+              },
+            });
+          });
+        }
+
+        // The serial is made by the worker when Paddle's webhook lands, a
+        // moment after the checkout completes: ask until it is there.
+        function fetchSerial(txn, email) {
+          var box = document.getElementById("stasis-thanks");
+          var status = document.getElementById("stasis-thanks-status");
+          box.hidden = false;
+          box.scrollIntoView({ behavior: "smooth", block: "center" });
+          if (!txn || !email) {
+            status.textContent = "Your serial is on its way to your email.";
+            return;
+          }
+          var tries = 0;
+          (function ask() {
+            fetch(
+              STORE.WORKER +
+                "/order?txn=" +
+                encodeURIComponent(txn) +
+                "&email=" +
+                encodeURIComponent(email),
+            )
+              .then(function (r) {
+                return r.json();
+              })
+              .then(function (j) {
+                if (j.status === "ready") {
+                  status.hidden = true;
+                  document.getElementById("stasis-serial").textContent =
+                    j.serial;
+                  if (j.download)
+                    document.getElementById("stasis-download").href =
+                      j.download;
+                  document.getElementById("stasis-thanks-ready").hidden =
+                    false;
+                } else if (++tries < 30) {
+                  setTimeout(ask, 2000);
+                } else {
+                  status.textContent =
+                    "Your serial is taking a moment; it will arrive by email. Questions: dan@dantimmons.net";
+                }
+              })
+              .catch(function () {
+                if (++tries < 30) setTimeout(ask, 2000);
+              });
+          })();
+        }
+
+        document
+          .getElementById("stasis-copy")
+          .addEventListener("click", function () {
+            navigator.clipboard.writeText(
+              document.getElementById("stasis-serial").textContent,
+            );
+            this.textContent = "Copied";
+          });
       })();
     </script>
   </body>
