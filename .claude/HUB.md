@@ -13,7 +13,7 @@ The hub reads this at session start (`/blc:hub`); `/blc:brief` is the delegation
 - **The gate** is the shop pre-commit hooks (gitleaks among them). Paddle client-side tokens are public by design; their line carries `// gitleaks:allow`. Server API keys never enter the repo.
 - **The walk-through is the user's**: `just serve`, and `just preview` to see drafts (`?preview`). The hub adds a test drive line for each visible change.
 - **Landing**: pushing is the user's (`just push`). Avoid `just ship`: it runs `git add -A`, which breaks the commit-own-paths rule.
-- **The board is local only**: origin is public, so the epiq state worktree has a dead pushurl. Never `git push --all` or `--mirror`, and never point the state branch at origin.
+- **The board is WWW in `~/Code/blc`**: this repo holds no epiq state; every epiq call passes `repoRoot=~/Code/blc`.
 
 ## Where things live
 

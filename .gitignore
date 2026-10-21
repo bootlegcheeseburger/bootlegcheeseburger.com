@@ -5,7 +5,4 @@ node_modules/
 design/
 .vite/
 
-# [epiq]: local hydrated state is never committed
-.epiq/events/
-.epiq/log/
 .local-dev/
