@@ -1,11 +1,10 @@
 # Bootleg Cheeseburger - static site tasks
 # Cloudflare Pages auto-deploys `main`, so `just ship` is the deploy.
 
-# list recipes
-default:
-    @just --list
-
 # serve the site locally with live-reload (vite HMR)
+
+import? '~/Code/blc/just/core.just'
+
 serve port="8000":
     npx vite --port {{port}}
 
