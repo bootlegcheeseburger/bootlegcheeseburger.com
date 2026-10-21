@@ -248,8 +248,10 @@
               <span class="buy-price" id="stasis-price"></span>
             </div>
             <p class="buy-fine">
-              One-time purchase. 30-day refunds. Sold by Paddle, our Merchant
-              of Record.
+              One-time purchase. <a href="refunds.html">30-day refunds</a>.
+              Sold by Paddle, our Merchant of Record.
+              <a href="terms.html">Terms</a> &middot;
+              <a href="privacy.html">Privacy</a>
             </p>
             <div class="stasis-thanks" id="stasis-thanks" aria-live="polite" hidden>
               <strong>Thank you!</strong>
@@ -901,13 +903,13 @@
       var STORE = {
         ENV: "sandbox",
         // Paddle > Developer tools > Authentication > client-side token (test_... in sandbox).
-        CLIENT_TOKEN: "",
+        CLIENT_TOKEN: "test_ae7526402c3843d4d2e02ac4a66", // gitleaks:allow (public by design)
         // The Stasis price (pri_...).
-        PRICE_ID: "",
+        PRICE_ID: "pri_01m5e27f8r4qr90jamafxbrq1q",
         // Shown beside the button until Paddle localises it.
         PRICE_LABEL: "$29",
         // The stasis-store worker that turns purchases into serials.
-        WORKER: "https://stasis-store.example.workers.dev",
+        WORKER: "https://stasis-store.dan-c48.workers.dev",
       };
 
       (function () {
@@ -915,12 +917,15 @@
         if (!buy) return;
         var price = document.getElementById("stasis-price");
         if (STORE.PRICE_LABEL) price.textContent = STORE.PRICE_LABEL;
-        if (!STORE.CLIENT_TOKEN || !STORE.PRICE_ID) {
-          buy.textContent = "Coming soon";
-          return;
-        }
+        // Buying needs the worker that turns a purchase into a serial; until
+        // it is deployed the button stays "Coming soon".
+        var canSell = STORE.WORKER && !/\.example\./.test(STORE.WORKER);
+        if (!canSell) buy.textContent = "Coming soon";
+        if (!STORE.CLIENT_TOKEN || !STORE.PRICE_ID) return;
 
-        // Paddle.js loads only once the store is configured.
+        // Paddle.js loads on every visit once configured: Paddle's default
+        // payment link opens this page with ?_ptxn=..., and Initialize is
+        // what opens that checkout.
         var s = document.createElement("script");
         s.src = "https://cdn.paddle.com/paddle/v2/paddle.js";
         s.onload = init;
@@ -937,15 +942,23 @@
               }
             },
           });
-          // The localised price for the buyer's country.
+          // The localised price for the buyer's country. US and Canadian
+          // buyers expect sales tax added at checkout, so they see the price
+          // before tax; elsewhere prices are shown with tax included.
           Paddle.PricePreview({
             items: [{ priceId: STORE.PRICE_ID, quantity: 1 }],
           })
             .then(function (r) {
               var li = r.data.details.lineItems[0];
-              if (li) price.textContent = li.formattedTotals.total;
+              if (!li) return;
+              var country = r.data.address && r.data.address.countryCode;
+              var preTax = country === "US" || country === "CA";
+              price.textContent = preTax
+                ? li.formattedTotals.subtotal
+                : li.formattedTotals.total;
             })
             .catch(function () {});
+          if (!canSell) return;
           buy.disabled = false;
           buy.addEventListener("click", function () {
             Paddle.Checkout.open({
