@@ -12,7 +12,7 @@ The hub reads this at session start (`/blc:hub`); `/blc:brief` is the delegation
 - **Workers**: an Opus builder edits pages and commits its own files (`git commit -o`); two builders never touch `index.html` at once. Research (Paddle, DNS, hosting) goes to a Sonnet worker.
 - **The gate** is the shop pre-commit hooks (gitleaks among them). Paddle client-side tokens are public by design; their line carries `// gitleaks:allow`. Server API keys never enter the repo.
 - **The walk-through is the user's**: `just serve`, and `just preview` to see drafts (`?preview`). The hub adds a test drive line for each visible change.
-- **Landing**: pushing is the user's (`just push`). Avoid `just ship`: it runs `git add -A`, which breaks the commit-own-paths rule.
+- **Landing**: pushing is the user's (`just push`).
 - **The board is WWW in `~/Code/blc`**: this repo holds no epiq state; every epiq call passes `repoRoot=~/Code/blc`.
 
 ## Where things live

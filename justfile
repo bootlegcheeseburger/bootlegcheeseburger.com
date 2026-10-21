@@ -1,5 +1,5 @@
 # Bootleg Cheeseburger - static site tasks
-# Cloudflare Pages auto-deploys `main`, so `just ship` is the deploy.
+# Cloudflare Pages auto-deploys `main`, so pushing `main` is the deploy (`just push`).
 
 # serve the site locally with live-reload (vite HMR)
 
@@ -19,12 +19,6 @@ preview port="8000":
 # short git status
 status:
     git status -s
-
-# commit everything and push (this triggers the Cloudflare Pages deploy)
-ship msg:
-    git add -A
-    git commit -m "{{msg}}"
-    git push
 
 # DNS / DNSSEC sanity check
 dns:
