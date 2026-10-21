@@ -17,7 +17,7 @@ The hub reads this at session start (`/blc:hub`); `/blc:brief` is the delegation
 
 ## Where things live
 
-- The store: the `STORE` block near the end of `index.html` (Paddle env, client token, price, serial worker URL). Paddle runs in sandbox until the user rules otherwise.
+- The store: the `STORE` block near the end of `index.html` (Paddle env, client token, price, serial worker URL). The STORE team (`~/Code/store`, teams in `~/Code/blc/docs/agents.md`) specifies it, the Buy button, the price display and the legal copy Paddle relies on; check with STORE before changing them.
 - Product cards: the showcase sections of `index.html`; images in `assets/`.
 - Legal copy: `terms.html`, `privacy.html`, `refunds.html`. Security policy: `SECURITY.md`.
 - Recipes: `justfile` (`serve`, `preview`, `live`, `dns`) plus the shared blc recipes.
