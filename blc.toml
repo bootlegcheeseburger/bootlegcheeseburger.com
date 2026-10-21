@@ -3,3 +3,7 @@
 
 [deps]
 tier = "sandbox"
+
+[board]          # epiq; LOCAL ONLY: origin is public, so the state worktree has a dead pushurl
+in_progress = "01M5FRJWPRYJJ1532WQ402REG4"   # turns the shared board hooks on
+testdrive = ".local-dev/testdrive.md"        # hand-test lines, gitignored
