@@ -79,6 +79,26 @@ body.preview .public-only { display: none; }
   gap: 12px;
   text-decoration: none;
   font-weight: 700;
+  position: relative;
+}
+/* Burger sits in the logo slot at the top; swaps for the logo on scroll. */
+.brand::before {
+  content: "\1F354";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 36px;
+  height: 36px;
+  margin-top: -18px;
+  display: grid;
+  place-items: center;
+  font-size: 28px;
+  line-height: 1;
+  transition: opacity .35s ease, transform .45s cubic-bezier(.2,.7,.2,1);
+}
+body.scrolled .brand::before {
+  opacity: 0;
+  transform: scale(0.4) rotate(-20deg);
 }
 .brand-mark {
   width: 36px;
@@ -92,17 +112,10 @@ body.preview .public-only { display: none; }
   transition: opacity .35s ease, transform .45s cubic-bezier(.2,.7,.2,1);
   pointer-events: none;
 }
-.brand-name {
-  transition: transform .45s cubic-bezier(.2,.7,.2,1);
-  transform: translateX(-44px);
-}
 body.scrolled .brand-mark {
   opacity: 1;
   transform: scale(1);
   pointer-events: auto;
-}
-body.scrolled .brand-name {
-  transform: translateX(0);
 }
 nav { display: flex; align-items: center; }
 nav > a, nav .nav-apps-trigger {
