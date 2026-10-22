@@ -251,6 +251,8 @@ nav > a:hover::after, nav .nav-apps-trigger:hover::after { right: 0; }
   border-top: 1px solid var(--rule);
   position: relative;
   overflow: hidden;
+  /* #app-... links land below the sticky masthead, link icon in view */
+  scroll-margin-top: 68px;
 }
 .showcase:first-of-type { border-top: none; }
 
