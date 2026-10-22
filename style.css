@@ -586,6 +586,16 @@ a.btn.btn--grey { pointer-events: none; cursor: default; }
 /* public/draft halves of one buy row lay out as direct flex items */
 .buy-row > .public-only,
 body.preview .buy-row > .draft-only { display: contents; }
+/* EULA consent: its own line under the buttons; Buy waits on it */
+.buy-agree {
+  flex-basis: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--ink);
+}
+.buy-agree input { width: 16px; height: 16px; margin: 0; }
 .showcase-text > p.buy-fine {
   font-size: 14px;
   line-height: 1.5;
