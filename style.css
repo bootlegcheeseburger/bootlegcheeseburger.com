@@ -596,6 +596,7 @@ body.preview .buy-row > .draft-only { display: contents; }
   color: var(--ink);
 }
 .buy-agree input { width: 16px; height: 16px; margin: 0; }
+.buy-agree[hidden] { display: none; }
 .showcase-text > p.buy-fine {
   font-size: 14px;
   line-height: 1.5;
