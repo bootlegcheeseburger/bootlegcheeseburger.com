@@ -20,4 +20,6 @@ The hub reads this at session start (`/blc:hub`); `/blc:brief` is the delegation
 - The store: the `STORE` block near the end of `index.html` (Paddle env, client token, price, serial worker URL). The STORE team (`~/Code/store`, teams in `~/Code/blc/docs/agents.md`) specifies it, the Buy button, the price display and the legal copy Paddle relies on; check with STORE before changing them.
 - Product cards: the showcase sections of `index.html`; images in `assets/`.
 - Legal copy: `terms.html`, `privacy.html`, `refunds.html`. Security policy: `SECURITY.md`.
-- Recipes: `justfile` (`serve`, `preview`, `live`, `dns`) plus the shared blc recipes.
+- EULAs: `eula/<app>.txt` (current) and `eula/<app>/<id>.txt` (every version, never removed), copied from `~/Code/store/eula` by `just eula <app>`, never hand-edited. The id is STORE's `eula_version`; a new id also means updating the STORE block.
+- Redirects: `_redirects` serves `updates.bootlegcheeseburger.com` (`/<app>/latest.dmg`, `/<app>/appcast.xml`), one line per app per shape.
+- Recipes: `justfile` (`serve`, `preview`, `live`, `dns`, `eula`) plus the shared blc recipes.
