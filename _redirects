@@ -1,0 +1,8 @@
+# updates.bootlegcheeseburger.com, a custom domain on this Pages project
+# (updates-redirect, X9MYZ4K). One line per app per URL shape:
+#   /<app>/latest.dmg    the newest release's fixed-name DMG
+#   /<app>/appcast.xml   the raw appcast in the app's releases repo
+# Older versions are not redirected; they stay on each repo's GitHub releases.
+# Pages cannot match on hostname, so these paths also answer on the main domain.
+
+/stasis/latest.dmg  https://github.com/bootlegcheeseburger/stasis-releases/releases/latest/download/Stasis.dmg  302
