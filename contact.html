@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Contact - Bootleg Cheeseburger</title>
+    <meta name="description" content="Write to Bootleg Cheeseburger: licence help, bug reports, feature ideas, billing and security." />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='52' font-size='52'%3E%F0%9F%8D%94%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="style.css?v=4" />
+    <style>
+      .contact { max-width: 34em; padding-top: 48px; padding-bottom: 64px; }
+      .contact h1 { font-size: 36px; margin: 0 0 4px; }
+      .contact .lede { color: var(--muted); margin: 0 0 28px; }
+      .contact .field { margin: 0 0 20px; }
+      .contact label { display: block; font-weight: 600; margin: 0 0 6px; }
+      .contact select {
+        display: block; width: 100%; font: inherit; color: var(--ink);
+        padding: 10px 12px; border: 1px solid #cfc7b8; border-radius: 10px; background: #fff;
+      }
+      .contact select:focus-visible, .contact .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+      .contact .send { margin: 28px 0 0; }
+      .contact .to-line { margin: 0 0 14px; min-height: 1.55em; }
+      .contact .to-line strong { font-family: var(--font-mono); font-size: 15px; font-weight: 500; overflow-wrap: anywhere; }
+      .contact .note { color: var(--muted); font-size: 15px; margin: 24px 0 0; }
+      .contact-fallback { padding-left: 1.2em; }
+      .contact-fallback li { margin: 0 0 8px; }
+      .contact-fallback .to { color: var(--muted); font-family: var(--font-mono); font-size: 14px; overflow-wrap: anywhere; }
+    </style>
+  </head>
+  <body>
+    <header class="masthead">
+      <div class="wrap">
+        <a class="brand" href="/"><img class="brand-mark" src="assets/blc-big.png" alt="" width="36" height="36" /><span class="brand-name">bootleg cheeseburger</span></a>
+        <nav><a href="/#apps">Apps</a><a href="/contact" aria-current="page">Contact</a></nav>
+      </div>
+    </header>
+    <main class="wrap contact">
+      <h1>Contact</h1>
+      <p class="lede">Pick what it is about and which app, and we will start the email for you.</p>
+
+      <noscript>
+        <p>Write to us directly:</p>
+        <ul class="contact-fallback"><!-- contact:gen fallback begin -->
+          <li><a href="mailto:billing@bootlegcheeseburger.com?subject=Billing%3A%20a%20question%20about%20my%20purchase&amp;body=Hello%2C%0D%0A%0D%0AI%20have%20a%20question%20about%20my%20purchase%20of%20.%0D%0A%0D%0A%0D%0A%0D%0AApp%3A%20%0D%0AOrder%20number%20%28from%20the%20receipt%29%3A%0D%0A">Billing Question...</a> <span class="to">billing@bootlegcheeseburger.com</span></li>
+          <li><a href="mailto:security@bootlegcheeseburger.com?subject=Security%3A%20a%20report&amp;body=Hello%2C%0D%0A%0D%0AI%20would%20like%20to%20report%20a%20security%20issue%20in%20.%0D%0A%0D%0AWhat%20I%20found%3A%0D%0A%0D%0A%0D%0AHow%20to%20reproduce%20it%3A%0D%0A%0D%0A%0D%0AApp%3A%20%0D%0AVersion%3A%20%0D%0ABuild%3A%20%0D%0AmacOS%3A%20%0D%0A">Report a Security Issue...</a> <span class="to">security@bootlegcheeseburger.com</span></li>
+          <!-- contact:gen fallback end -->
+          <li>Anything else, an app's licence, a bug or an idea: <a href="mailto:support@bootlegcheeseburger.com">support@bootlegcheeseburger.com</a></li>
+        </ul>
+      </noscript>
+
+      <form id="contact-form" hidden>
+        <div class="field">
+          <label for="contact-kind">What is it about?</label>
+          <select id="contact-kind" name="kind"></select>
+        </div>
+        <div class="field">
+          <label for="contact-app">Which app?</label>
+          <select id="contact-app" name="app"></select>
+        </div>
+        <div class="send">
+          <p class="to-line" id="contact-to" aria-live="polite"></p>
+          <a class="btn btn--grey" id="contact-go" role="link" aria-disabled="true">Write email</a>
+        </div>
+        <p class="note">The button opens your mail app with the email started. Anything else: <a href="mailto:support@bootlegcheeseburger.com">support@bootlegcheeseburger.com</a>.</p>
+      </form>
+    </main>
+    <footer><div class="wrap"><span>(c) Bootleg Cheeseburger, LLC</span><span><a href="terms.html">Terms</a> &middot; <a href="privacy.html">Privacy</a> &middot; <a href="refunds.html">Refunds</a></span></div></footer>
+    <!-- contact:gen data begin -->
+    <script type="application/json" id="contact-data">
+{
+  "kinds": [
+    {
+      "id": "serial",
+      "label": "Licence or Serial Help...",
+      "scope": "app",
+      "to": "support@bootlegcheeseburger.com"
+    },
+    {
+      "id": "bug",
+      "label": "Report a Bug...",
+      "scope": "app",
+      "to": "support@bootlegcheeseburger.com"
+    },
+    {
+      "id": "feature",
+      "label": "Request a Feature...",
+      "scope": "app",
+      "to": "support@bootlegcheeseburger.com"
+    },
+    {
+      "id": "billing",
+      "label": "Billing Question...",
+      "scope": "shop",
+      "to": "billing@bootlegcheeseburger.com"
+    },
+    {
+      "id": "security",
+      "label": "Report a Security Issue...",
+      "scope": "shop",
+      "to": "security@bootlegcheeseburger.com"
+    }
+  ],
+  "apps": [
+    {
+      "id": "moair",
+      "name": "MoAir",
+      "kinds": [
+        "bug",
+        "feature",
+        "security"
+      ]
+    },
+    {
+      "id": "notetaken",
+      "name": "NoteTaken",
+      "kinds": [
+        "serial",
+        "bug",
+        "feature",
+        "security"
+      ]
+    },
+    {
+      "id": "plupdate",
+      "name": "plupdate!",
+      "kinds": [
+        "bug",
+        "feature",
+        "security"
+      ]
+    },
+    {
+      "id": "stasis",
+      "name": "Stasis",
+      "kinds": [
+        "serial",
+        "bug",
+        "feature",
+        "billing",
+        "security"
+      ]
+    },
+    {
+      "id": "streampec",
+      "name": "streampec",
+      "kinds": [
+        "bug",
+        "feature",
+        "security"
+      ]
+    }
+  ],
+  "mailto": {
+    "moair/bug": "mailto:support@bootlegcheeseburger.com?subject=%5BMoAir%5D%20Bug%3A%20something%20is%20not%20working&body=Hello%2C%0D%0A%0D%0AI%20found%20a%20problem%20in%20MoAir.%0D%0A%0D%0AWhat%20I%20did%3A%0D%0A%0D%0A%0D%0AWhat%20happened%3A%0D%0A%0D%0A%0D%0AWhat%20I%20expected%3A%0D%0A%0D%0A%0D%0AApp%3A%20MoAir%0D%0AVersion%3A%20%0D%0ABuild%3A%20%0D%0AmacOS%3A%20%0D%0A",
+    "moair/feature": "mailto:support@bootlegcheeseburger.com?subject=%5BMoAir%5D%20Feature%3A%20an%20idea&body=Hello%2C%0D%0A%0D%0AI%20have%20an%20idea%20for%20MoAir.%0D%0A%0D%0A%0D%0A%0D%0AApp%3A%20MoAir%0D%0AVersion%3A%20%0D%0A",
+    "moair/security": "mailto:security@bootlegcheeseburger.com?subject=%5BMoAir%5D%20Security%3A%20a%20report&body=Hello%2C%0D%0A%0D%0AI%20would%20like%20to%20report%20a%20security%20issue%20in%20MoAir.%0D%0A%0D%0AWhat%20I%20found%3A%0D%0A%0D%0A%0D%0AHow%20to%20reproduce%20it%3A%0D%0A%0D%0A%0D%0AApp%3A%20MoAir%0D%0AVersion%3A%20%0D%0ABuild%3A%20%0D%0AmacOS%3A%20%0D%0A",
+    "notetaken/serial": "mailto:support@bootlegcheeseburger.com?subject=%5BNoteTaken%5D%20Serial%3A%20help%20with%20my%20licence&body=Hello%2C%0D%0A%0D%0AI%20need%20help%20with%20my%20NoteTaken%20licence%20or%20serial.%0D%0A%0D%0A%0D%0A%0D%0AApp%3A%20NoteTaken%0D%0AVersion%3A%20%0D%0ABuild%3A%20%0D%0AmacOS%3A%20%0D%0ASerial%20%28last%204%20characters%29%3A%20%0D%0A%0D%0APlease%20do%20not%20send%20the%20full%20serial%3B%20the%20last%204%20characters%20are%20enough.%0D%0A",
+    "notetaken/bug": "mailto:support@bootlegcheeseburger.com?subject=%5BNoteTaken%5D%20Bug%3A%20something%20is%20not%20working&body=Hello%2C%0D%0A%0D%0AI%20found%20a%20problem%20in%20NoteTaken.%0D%0A%0D%0AWhat%20I%20did%3A%0D%0A%0D%0A%0D%0AWhat%20happened%3A%0D%0A%0D%0A%0D%0AWhat%20I%20expected%3A%0D%0A%0D%0A%0D%0AApp%3A%20NoteTaken%0D%0AVersion%3A%20%0D%0ABuild%3A%20%0D%0AmacOS%3A%20%0D%0A",
+    "notetaken/feature": "mailto:support@bootlegcheeseburger.com?subject=%5BNoteTaken%5D%20Feature%3A%20an%20idea&body=Hello%2C%0D%0A%0D%0AI%20have%20an%20idea%20for%20NoteTaken.%0D%0A%0D%0A%0D%0A%0D%0AApp%3A%20NoteTaken%0D%0AVersion%3A%20%0D%0A",
+    "notetaken/security": "mailto:security@bootlegcheeseburger.com?subject=%5BNoteTaken%5D%20Security%3A%20a%20report&body=Hello%2C%0D%0A%0D%0AI%20would%20like%20to%20report%20a%20security%20issue%20in%20NoteTaken.%0D%0A%0D%0AWhat%20I%20found%3A%0D%0A%0D%0A%0D%0AHow%20to%20reproduce%20it%3A%0D%0A%0D%0A%0D%0AApp%3A%20NoteTaken%0D%0AVersion%3A%20%0D%0ABuild%3A%20%0D%0AmacOS%3A%20%0D%0A",
+    "plupdate/bug": "mailto:support@bootlegcheeseburger.com?subject=%5Bplupdate%21%5D%20Bug%3A%20something%20is%20not%20working&body=Hello%2C%0D%0A%0D%0AI%20found%20a%20problem%20in%20plupdate%21.%0D%0A%0D%0AWhat%20I%20did%3A%0D%0A%0D%0A%0D%0AWhat%20happened%3A%0D%0A%0D%0A%0D%0AWhat%20I%20expected%3A%0D%0A%0D%0A%0D%0AApp%3A%20plupdate%21%0D%0AVersion%3A%20%0D%0ABuild%3A%20%0D%0AmacOS%3A%20%0D%0A",
+    "plupdate/feature": "mailto:support@bootlegcheeseburger.com?subject=%5Bplupdate%21%5D%20Feature%3A%20an%20idea&body=Hello%2C%0D%0A%0D%0AI%20have%20an%20idea%20for%20plupdate%21.%0D%0A%0D%0A%0D%0A%0D%0AApp%3A%20plupdate%21%0D%0AVersion%3A%20%0D%0A",
+    "plupdate/security": "mailto:security@bootlegcheeseburger.com?subject=%5Bplupdate%21%5D%20Security%3A%20a%20report&body=Hello%2C%0D%0A%0D%0AI%20would%20like%20to%20report%20a%20security%20issue%20in%20plupdate%21.%0D%0A%0D%0AWhat%20I%20found%3A%0D%0A%0D%0A%0D%0AHow%20to%20reproduce%20it%3A%0D%0A%0D%0A%0D%0AApp%3A%20plupdate%21%0D%0AVersion%3A%20%0D%0ABuild%3A%20%0D%0AmacOS%3A%20%0D%0A",
+    "stasis/serial": "mailto:support@bootlegcheeseburger.com?subject=%5BStasis%5D%20Serial%3A%20help%20with%20my%20licence&body=Hello%2C%0D%0A%0D%0AI%20need%20help%20with%20my%20Stasis%20licence%20or%20serial.%0D%0A%0D%0A%0D%0A%0D%0AApp%3A%20Stasis%0D%0AVersion%3A%20%0D%0ABuild%3A%20%0D%0AmacOS%3A%20%0D%0ASerial%20%28last%204%20characters%29%3A%20%0D%0A%0D%0APlease%20do%20not%20send%20the%20full%20serial%3B%20the%20last%204%20characters%20are%20enough.%0D%0A",
+    "stasis/bug": "mailto:support@bootlegcheeseburger.com?subject=%5BStasis%5D%20Bug%3A%20something%20is%20not%20working&body=Hello%2C%0D%0A%0D%0AI%20found%20a%20problem%20in%20Stasis.%0D%0A%0D%0AWhat%20I%20did%3A%0D%0A%0D%0A%0D%0AWhat%20happened%3A%0D%0A%0D%0A%0D%0AWhat%20I%20expected%3A%0D%0A%0D%0A%0D%0AApp%3A%20Stasis%0D%0AVersion%3A%20%0D%0ABuild%3A%20%0D%0AmacOS%3A%20%0D%0A",
+    "stasis/feature": "mailto:support@bootlegcheeseburger.com?subject=%5BStasis%5D%20Feature%3A%20an%20idea&body=Hello%2C%0D%0A%0D%0AI%20have%20an%20idea%20for%20Stasis.%0D%0A%0D%0A%0D%0A%0D%0AApp%3A%20Stasis%0D%0AVersion%3A%20%0D%0A",
+    "stasis/billing": "mailto:billing@bootlegcheeseburger.com?subject=%5BStasis%5D%20Billing%3A%20a%20question%20about%20my%20purchase&body=Hello%2C%0D%0A%0D%0AI%20have%20a%20question%20about%20my%20purchase%20of%20Stasis.%0D%0A%0D%0A%0D%0A%0D%0AApp%3A%20Stasis%0D%0AOrder%20number%20%28from%20the%20receipt%29%3A%0D%0A",
+    "stasis/security": "mailto:security@bootlegcheeseburger.com?subject=%5BStasis%5D%20Security%3A%20a%20report&body=Hello%2C%0D%0A%0D%0AI%20would%20like%20to%20report%20a%20security%20issue%20in%20Stasis.%0D%0A%0D%0AWhat%20I%20found%3A%0D%0A%0D%0A%0D%0AHow%20to%20reproduce%20it%3A%0D%0A%0D%0A%0D%0AApp%3A%20Stasis%0D%0AVersion%3A%20%0D%0ABuild%3A%20%0D%0AmacOS%3A%20%0D%0A",
+    "streampec/bug": "mailto:support@bootlegcheeseburger.com?subject=%5Bstreampec%5D%20Bug%3A%20something%20is%20not%20working&body=Hello%2C%0D%0A%0D%0AI%20found%20a%20problem%20in%20streampec.%0D%0A%0D%0AWhat%20I%20did%3A%0D%0A%0D%0A%0D%0AWhat%20happened%3A%0D%0A%0D%0A%0D%0AWhat%20I%20expected%3A%0D%0A%0D%0A%0D%0AApp%3A%20streampec%0D%0AVersion%3A%20%0D%0ABuild%3A%20%0D%0AmacOS%3A%20%0D%0A",
+    "streampec/feature": "mailto:support@bootlegcheeseburger.com?subject=%5Bstreampec%5D%20Feature%3A%20an%20idea&body=Hello%2C%0D%0A%0D%0AI%20have%20an%20idea%20for%20streampec.%0D%0A%0D%0A%0D%0A%0D%0AApp%3A%20streampec%0D%0AVersion%3A%20%0D%0A",
+    "streampec/security": "mailto:security@bootlegcheeseburger.com?subject=%5Bstreampec%5D%20Security%3A%20a%20report&body=Hello%2C%0D%0A%0D%0AI%20would%20like%20to%20report%20a%20security%20issue%20in%20streampec.%0D%0A%0D%0AWhat%20I%20found%3A%0D%0A%0D%0A%0D%0AHow%20to%20reproduce%20it%3A%0D%0A%0D%0A%0D%0AApp%3A%20streampec%0D%0AVersion%3A%20%0D%0ABuild%3A%20%0D%0AmacOS%3A%20%0D%0A",
+    "/billing": "mailto:billing@bootlegcheeseburger.com?subject=Billing%3A%20a%20question%20about%20my%20purchase&body=Hello%2C%0D%0A%0D%0AI%20have%20a%20question%20about%20my%20purchase%20of%20.%0D%0A%0D%0A%0D%0A%0D%0AApp%3A%20%0D%0AOrder%20number%20%28from%20the%20receipt%29%3A%0D%0A",
+    "/security": "mailto:security@bootlegcheeseburger.com?subject=Security%3A%20a%20report&body=Hello%2C%0D%0A%0D%0AI%20would%20like%20to%20report%20a%20security%20issue%20in%20.%0D%0A%0D%0AWhat%20I%20found%3A%0D%0A%0D%0A%0D%0AHow%20to%20reproduce%20it%3A%0D%0A%0D%0A%0D%0AApp%3A%20%0D%0AVersion%3A%20%0D%0ABuild%3A%20%0D%0AmacOS%3A%20%0D%0A"
+  }
+}
+    </script>
+    <!-- contact:gen data end -->
+    <script>
+      if (new URLSearchParams(location.search).has("preview")) document.body.classList.add("preview");
+      (function () {
+        // The mailtos are precomputed by `just contact`; this only picks one.
+        var data = JSON.parse(document.getElementById("contact-data").textContent);
+        var form = document.getElementById("contact-form");
+        var kindSel = document.getElementById("contact-kind");
+        var appSel = document.getElementById("contact-app");
+        var to = document.getElementById("contact-to");
+        var go = document.getElementById("contact-go");
+        var kinds = {}, apps = {};
+        data.kinds.forEach(function (k) { kinds[k.id] = k; });
+        data.apps.forEach(function (a) { apps[a.id] = a; });
+
+        // app "" = not chosen yet, "none" = no specific app (shop kinds only)
+        function fits(kind, app) {
+          if (!kind || !app) return true;
+          if (app === "none") return kinds[kind].scope === "shop";
+          return apps[app].kinds.indexOf(kind) !== -1;
+        }
+        function fill(sel, prompt, options, keep) {
+          sel.textContent = "";
+          sel.add(new Option(prompt, ""));
+          options.forEach(function (o) { sel.add(new Option(o[1], o[0])); });
+          sel.value = options.some(function (o) { return o[0] === keep; }) ? keep : "";
+        }
+        function render(kind, app) {
+          fill(kindSel, "Choose a category", data.kinds
+            .filter(function (k) { return fits(k.id, app); })
+            .map(function (k) { return [k.id, k.label]; }), kind);
+          var appOpts = data.apps
+            .filter(function (a) { return fits(kind, a.id); })
+            .map(function (a) { return [a.id, a.name]; });
+          if (fits(kind, "none")) appOpts.push(["none", "No specific app"]);
+          fill(appSel, "Choose an app", appOpts, app);
+          kind = kindSel.value; app = appSel.value;
+
+          var url = kind && app ? data.mailto[(app === "none" ? "" : app) + "/" + kind] : null;
+          if (url) {
+            go.href = url;
+            go.classList.remove("btn--grey");
+            go.removeAttribute("aria-disabled");
+            to.innerHTML = "";
+            to.append("It goes to ");
+            var s = document.createElement("strong");
+            s.textContent = kinds[kind].to;
+            to.append(s, ".");
+          } else {
+            go.removeAttribute("href");
+            go.classList.add("btn--grey");
+            go.setAttribute("aria-disabled", "true");
+            to.textContent = !kind ? "Choose a category."
+              : kinds[kind].scope === "shop" ? "Choose an app, or No specific app." : "Choose an app.";
+          }
+          var q = new URLSearchParams(location.search);
+          kind ? q.set("kind", kind) : q.delete("kind");
+          app ? q.set("app", app) : q.delete("app");
+          var s2 = q.toString();
+          history.replaceState(null, "", location.pathname + (s2 ? "?" + s2 : "") + location.hash);
+        }
+
+        kindSel.addEventListener("change", function () {
+          var kind = kindSel.value, app = appSel.value;
+          // a shop kind with no app chosen yet starts at "No specific app"
+          if (kind && !app && kinds[kind].scope === "shop") app = "none";
+          render(kind, fits(kind, app) ? app : "");
+        });
+        appSel.addEventListener("change", function () {
+          var kind = kindSel.value, app = appSel.value;
+          render(fits(kind, app) ? kind : "", app);
+        });
+
+        var q = new URLSearchParams(location.search);
+        var kind = kinds[q.get("kind")] ? q.get("kind") : "";
+        var app = apps[q.get("app")] || q.get("app") === "none" ? q.get("app") : "";
+        if (kind && !app && kinds[kind].scope === "shop") app = "none";
+        if (!fits(kind, app)) app = "";
+        render(kind, app);
+        form.hidden = false;
+      })();
+    </script>
+  </body>
+</html>

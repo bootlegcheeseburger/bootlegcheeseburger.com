@@ -53,10 +53,17 @@ eula app:
 share-cards *apps:
     python3 -I scripts/share-cards.py {{apps}}
 
-# the gate: site EULAs and STORE EULA_VERSION match ~/Code/store (also .githooks/pre-push)
+# the contact page's precomputed mailtos (contact.html, between its contact:gen
+# markers) from ~/Code/store/gen/contact.json; never hand-edit them
+contact:
+    python3 -I scripts/contact-gen.py
+
+# the gate: site EULAs, STORE EULA_VERSION and the contact page's mailtos match
+# ~/Code/store (also .githooks/pre-push)
 [group('dev')]
 dev-check:
     python3 -I scripts/eula-check.py
+    python3 -I scripts/contact-check.py
 
 # DNS / DNSSEC sanity check
 dns:
