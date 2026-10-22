@@ -693,7 +693,8 @@ body.preview .buy-row > .draft-only { display: contents; }
 .showcase--ucsify    { --card-accent: #1f9d7e; --bg-tint: #e8f5f0; }
 
 @media (max-width: 860px) {
-  .showcase { padding: 72px 0; }
+  /* links land with the art just under the masthead, link icon scrolled past */
+  .showcase { padding: 72px 0; scroll-margin-top: 16px; }
   .showcase-wrap { grid-template-columns: 1fr; gap: 40px; }
   .showcase[data-side="left"] .showcase-art,
   .showcase[data-side="right"] .showcase-art { order: 1; max-width: 320px; }
