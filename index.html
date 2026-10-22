@@ -242,12 +242,20 @@
             <p>Enjoy our introductory price before I add more features!!</p>
             <!-- Buy shows only with ?preview until sales open (paddle-live,
                  VVS6FF7); then drop the public-only span and the draft-only
-                 wrapper. The beta button stays grey until the beta download
-                 exists (download-home, 89V4TNW). -->
+                 wrapper. The beta button stays grey until stasis-releases
+                 has a release with a DMG; the release fetch below then fills
+                 in its version and link and drops the grey. -->
             <div class="buy-row">
-              <button type="button" class="btn btn--grey" id="stasis-demo" disabled>
-                Download beta
-              </button>
+              <a
+                class="btn btn--download btn--grey"
+                id="stasis-demo"
+                href="https://updates.bootlegcheeseburger.com/stasis/latest.dmg"
+                data-repo="bootlegcheeseburger/stasis-releases"
+                data-label="Download beta"
+                aria-disabled="true"
+              >
+                <span class="btn-version-label">Download beta</span>
+              </a>
               <span class="public-only">
                 <button type="button" class="btn btn--grey" disabled>
                   $29 &middot; Coming soon
@@ -741,13 +749,17 @@
               var tag = (d.tag_name || "").trim();
               if (tag) {
                 var label = el.querySelector(".btn-version-label");
-                if (label) label.textContent = "Download " + tag;
+                if (label)
+                  label.textContent =
+                    (el.dataset.label || "Download") + " " + tag;
               }
               var dmg = (d.assets || []).find(function (a) {
                 return /\.dmg$/i.test(a.name);
               });
               if (dmg && dmg.browser_download_url) {
                 el.href = dmg.browser_download_url;
+                el.classList.remove("btn--grey");
+                el.removeAttribute("aria-disabled");
               }
             })
             .catch(function () {
