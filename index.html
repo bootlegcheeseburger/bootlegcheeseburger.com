@@ -240,16 +240,25 @@
               <li>Tape aficionados</li>
             </ul>
             <p>Enjoy our introductory price before I add more features!!</p>
-            <!-- Buy shows only with ?preview until Paddle approves the domain
-                 (paddle-live, VVS6FF7); then drop the wrapper and the line below. -->
-            <p class="public-only">Coming soon: $29, one-time.</p>
-            <div class="draft-only">
-              <div class="buy-row">
+            <!-- Buy shows only with ?preview until sales open (paddle-live,
+                 VVS6FF7); then drop the public-only span and the draft-only
+                 wrapper. The demo button stays grey until the demo download
+                 exists (download-home, 89V4TNW). -->
+            <div class="buy-row">
+              <button type="button" class="btn btn--grey" id="stasis-demo" disabled>
+                Download demo
+              </button>
+              <span class="public-only">
+                <button type="button" class="btn btn--grey" disabled>
+                  $29 &middot; Coming soon
+                </button>
+              </span>
+              <span class="draft-only">
                 <button type="button" class="btn" id="stasis-buy" disabled>
                   Buy Stasis &rarr;
                 </button>
                 <span class="buy-price" id="stasis-price"></span>
-              </div>
+              </span>
             </div>
             <p class="buy-fine">
               One-time purchase, yours to keep, on up to 2 Macs. Includes 1
