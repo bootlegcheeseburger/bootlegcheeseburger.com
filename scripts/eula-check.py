@@ -7,7 +7,7 @@ For every app whose entry in ~/Code/store/gen/apps.json has eula "shared":
   2. eula/<app>/<v>.txt holds that same text, v = the first 12 hex of its
      SHA-256 (STORE's eula_version).
   3. a STORE block's `EULA_VERSION: "<v>", // eula:<app>` line in index.html
-     (the tag names the app; `just eula <app>` rewrites it) holds that v. An
+     (the tag names the app; `just tool-eula <app>` rewrites it) holds that v. An
      EULA_VERSION line without the tag, or naming no shared app, fails too.
 Older version files are never a violation. Reads only; never writes or deletes.
 Every problem is reported in one run; exit 1 on any.
@@ -91,7 +91,7 @@ def main(argv):
             problems.append(f"index.html:{n}{where}: EULA_VERSION is tagged eula:{app}, which has no shared EULA in ~/Code/store/gen/apps.json")
         pinned.setdefault(app, []).append((n, m.group(1).decode(errors="replace")))
     for app in shared:
-        fix = f"run `just eula {app}` and commit"
+        fix = f"run `just tool-eula {app}` and commit"
         try:
             with open(os.path.join(STORE, "eula", f"{app}.txt"), "rb") as f:
                 lines = f.read().split(b"\n")
@@ -118,7 +118,7 @@ def main(argv):
         for n, site_v in pinned.get(app, []):
             if site_v != v:
                 problems.append(f"EULA_VERSION for {app} is {site_v}, store is {v}: update the STORE block "
-                                f"(index.html:{n}{where}; `just eula {app}` rewrites it)")
+                                f"(index.html:{n}{where}; `just tool-eula {app}` rewrites it)")
 
     for p in problems:
         print(f"eula-check: {p}", file=sys.stderr)

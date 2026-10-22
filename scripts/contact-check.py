@@ -4,7 +4,7 @@
 Regenerates contact.html's `contact:gen` regions (the no-JS fallback list and
 the JSON data) from ~/Code/store/gen/contact.json, ~/Code/store/gen/apps.json
 and the site's own index.html (which apps are public), with the same code as
-`just contact` (scripts/contact-gen.py), and fails when the committed page
+`just tool-contact` (scripts/contact-gen.py), and fails when the committed page
 differs. Reads only; never writes. Exit 1 on any problem.
 
 Usage: python3 -I scripts/contact-check.py [--rev REV]
@@ -19,7 +19,7 @@ import subprocess
 import sys
 
 SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-FIX = "run `just contact` and commit"
+FIX = "run `just tool-contact` and commit"
 
 
 def load_gen():

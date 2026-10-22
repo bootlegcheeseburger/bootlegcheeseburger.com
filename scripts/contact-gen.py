@@ -23,7 +23,7 @@ Subject and body are percent-encoded per RFC 6068 (every byte outside the
 unreserved set, a space as %20, a line break as %0D%0A). A mailto over
 `mailto_max` characters is an error, never truncated.
 
-Usage: python3 -I scripts/contact-gen.py   (`just contact`)
+Usage: python3 -I scripts/contact-gen.py   (`just tool-contact`)
 scripts/contact-check.py imports this file to regenerate and compare.
 """
 

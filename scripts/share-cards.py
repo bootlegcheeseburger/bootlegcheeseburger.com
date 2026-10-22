@@ -15,6 +15,7 @@ error. The name comes from .showcase-title and the color from that app's
 --card-accent in style.css.
 
 Usage: python3 -I scripts/share-cards.py [app ...]   (no args: all, plus site)
+       just tool-share-cards [app ...]
 """
 
 import html

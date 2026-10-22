@@ -178,7 +178,7 @@
     <script>
       if (new URLSearchParams(location.search).has("preview")) document.body.classList.add("preview");
       (function () {
-        // The mailtos are precomputed by `just contact`; this only picks one.
+        // The mailtos are precomputed by `just tool-contact`; this only picks one.
         var data = JSON.parse(document.getElementById("contact-data").textContent);
         var form = document.getElementById("contact-form");
         var kindSel = document.getElementById("contact-kind");
