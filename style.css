@@ -580,7 +580,8 @@ button.btn {
 button.btn[disabled] { opacity: 0.55; cursor: default; }
 button.btn[disabled]:hover { gap: 6px; text-decoration: none; }
 /* inactive grey buttons: demo not out yet, price before sales open */
-button.btn.btn--grey { background: #a3a3a3; opacity: 1; }
+.btn.btn--grey { background: #a3a3a3; opacity: 1; }
+a.btn.btn--grey { pointer-events: none; cursor: default; }
 /* public/draft halves of one buy row lay out as direct flex items */
 .buy-row > .public-only,
 body.preview .buy-row > .draft-only { display: contents; }
