@@ -5,4 +5,9 @@
 # Older versions are not redirected; they stay on each repo's GitHub releases.
 # Pages cannot match on hostname, so these paths also answer on the main domain.
 
-/stasis/latest.dmg  https://github.com/bootlegcheeseburger/stasis-releases/releases/latest/download/Stasis.dmg  302
+/stasis/latest.dmg      https://github.com/bootlegcheeseburger/stasis-releases/releases/latest/download/Stasis.dmg  302
+/stasis/appcast.xml     https://raw.githubusercontent.com/bootlegcheeseburger/stasis-releases/main/appcast.xml  302
+
+# /notetaken/latest.dmg waits for NoteTaken to ship through blc /publish
+# (fixed-name NoteTaken.dmg, beta-promote 2J3GJTY).
+/notetaken/appcast.xml  https://raw.githubusercontent.com/bootlegcheeseburger/notetaken-releases/main/appcast.xml  302
