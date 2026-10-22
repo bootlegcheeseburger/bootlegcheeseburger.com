@@ -266,7 +266,7 @@
                   Buy Stasis &rarr;
                 </button>
                 <span class="buy-price" id="stasis-price"></span>
-                <label class="buy-agree">
+                <label class="buy-agree" id="stasis-agree-line" hidden>
                   <input type="checkbox" id="stasis-agree" />
                   <span>I agree to the
                     <a href="/eula/stasis.txt" target="_blank" rel="noopener">Stasis EULA</a></span>
@@ -994,15 +994,24 @@
             })
             .catch(function () {});
           if (!canSell) return;
-          // Buy waits on the EULA checkbox, and goes back off if it is unticked.
+          // The first Buy click only reveals the EULA checkbox; from then on
+          // Buy waits on it, and goes back off if it is unticked.
           var agree = document.getElementById("stasis-agree");
+          var agreeLine = document.getElementById("stasis-agree-line");
+          if (!agree || !agreeLine) return;
           function sync() {
-            buy.disabled = !(agree && agree.checked);
+            buy.disabled = !agreeLine.hidden && !agree.checked;
           }
-          if (agree) agree.addEventListener("change", sync);
+          agree.addEventListener("change", sync);
           sync();
           buy.addEventListener("click", function () {
-            if (!agree || !agree.checked) return;
+            if (agreeLine.hidden) {
+              agreeLine.hidden = false;
+              agree.focus();
+              sync();
+              return;
+            }
+            if (!agree.checked) return;
             Paddle.Checkout.open({
               items: [{ priceId: STORE.PRICE_ID, quantity: 1 }],
               customData: {
