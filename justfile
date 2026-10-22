@@ -48,6 +48,11 @@ eula app:
         echo "index.html: EULA_VERSION for {{app}} -> $id"
     fi
 
+# share pages (<app>.html) and link-preview cards (assets/share/*.png) from the
+# store catalog's taglines; no args = every public app plus the site card
+share-cards *apps:
+    python3 -I scripts/share-cards.py {{apps}}
+
 # the gate: site EULAs and STORE EULA_VERSION match ~/Code/store (also .githooks/pre-push)
 [group('dev')]
 dev-check:

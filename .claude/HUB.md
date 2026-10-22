@@ -22,5 +22,6 @@ The hub reads this at session start (`/blc:hub`); `/blc:brief` is the delegation
 - Legal copy: `terms.html`, `privacy.html`, `refunds.html`. Security policy: `SECURITY.md`.
 - EULAs: `eula/<app>.txt` (current) and `eula/<app>/<id>.txt` (every version, never removed), copied from `~/Code/store/eula` by `just eula <app>`, never hand-edited. The id is STORE's `eula_version`; the recipe also rewrites the STORE block's `EULA_VERSION: "<id>", // eula:<app>` line.
 - EULA drift rule: for every app `~/Code/store/gen/apps.json` gives `eula: "shared"`, the site copy, its versioned copy and its tagged `EULA_VERSION` match the store's text; `scripts/eula-check.py` enforces it in `just dev-check` and `.githooks/pre-push` (checks each pushed commit, so a drifted tree never deploys).
+- Share links: each public app's copy-link button gives `/<app>`, a page (`<app>.html`) whose Open Graph tags unfurl as its card (`assets/share/<app>.png`; the site's is `site.png`). `just share-cards [app]` regenerates pages and cards from `scripts/share/card.html` and the store catalog's `tagline`; never hand-edit them.
 - Redirects: `_redirects` serves `updates.bootlegcheeseburger.com` (`/<app>/latest.dmg`, `/<app>/appcast.xml`), one line per app per shape.
 - Recipes: `justfile` (`serve`, `preview`, `live`, `dns`, `eula`, `dev-check`) plus the shared blc recipes.

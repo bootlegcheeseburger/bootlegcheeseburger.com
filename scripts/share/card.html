@@ -1,0 +1,138 @@
+<!doctype html>
+<!--
+  Link-preview card (1200x630), rendered to assets/share/<app>.png by
+  scripts/share-cards.py through headless Chromium. All content comes from
+  the query string, so this file holds layout only:
+    icon  image URL        name  app name        tag   tagline
+    bg    background color fg    text color      mark  1 = small blc logo
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Share card</title>
+    <style>
+      :root {
+        --bg: #d83a2b;
+        --fg: #ffffff;
+        --font-sans: -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", Arial, sans-serif;
+      }
+      * { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+      }
+      body {
+        position: relative;
+        background: var(--bg);
+        color: var(--fg);
+        font-family: var(--font-sans);
+        -webkit-font-smoothing: antialiased;
+      }
+      /* soft light behind the icon and a faint halftone toward the far corner */
+      body::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at 300px 315px, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0) 330px),
+          linear-gradient(135deg, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.16));
+      }
+      body::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(rgba(0, 0, 0, 0.13) 2.2px, transparent 2.6px);
+        background-size: 16px 16px;
+        -webkit-mask-image: linear-gradient(120deg, transparent 50%, #000 100%);
+        mask-image: linear-gradient(120deg, transparent 50%, #000 100%);
+      }
+      .card {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        height: 100%;
+        padding: 0 72px 0 76px;
+        gap: 56px;
+      }
+      .icon {
+        flex: none;
+        width: 440px;
+        height: 440px;
+        object-fit: contain;
+        transform: rotate(-5deg);
+        filter: drop-shadow(0 22px 34px rgba(0, 0, 0, 0.32));
+      }
+      .text { flex: 1; min-width: 0; }
+      .name {
+        margin: 0;
+        font-weight: 850;
+        font-size: 150px;
+        line-height: 0.92;
+        letter-spacing: -0.045em;
+        overflow-wrap: normal;
+      }
+      .tag {
+        margin: 26px 0 0;
+        font-weight: 650;
+        font-size: 64px;
+        line-height: 1.08;
+        letter-spacing: -0.02em;
+        opacity: 0.92;
+        text-wrap: balance;
+      }
+      .mark {
+        position: absolute;
+        z-index: 1;
+        right: 34px;
+        bottom: 26px;
+        width: 92px;
+        height: auto;
+        transform: rotate(8deg);
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.25));
+      }
+      .mark[hidden] { display: none; }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <img class="icon" alt="" />
+      <div class="text">
+        <h1 class="name"></h1>
+        <p class="tag"></p>
+      </div>
+    </main>
+    <img class="mark" src="../../assets/blc.png" alt="" hidden />
+    <script>
+      (function () {
+        var q = new URLSearchParams(location.search);
+        var root = document.documentElement.style;
+        if (q.get("bg")) root.setProperty("--bg", q.get("bg"));
+        if (q.get("fg")) root.setProperty("--fg", q.get("fg"));
+        document.querySelector(".icon").src = q.get("icon") || "../../assets/blc-big.png";
+        var name = document.querySelector(".name");
+        var tag = document.querySelector(".tag");
+        name.textContent = q.get("name") || "App";
+        tag.textContent = q.get("tag") || "";
+        if (q.get("mark") === "1") document.querySelector(".mark").hidden = false;
+
+        // Shrink the name until no word overflows its column, then the tagline
+        // (and if need be the name) until both fit the card's height.
+        var text = document.querySelector(".text");
+        var size = 150;
+        while (name.scrollWidth > text.clientWidth && size > 60) {
+          name.style.fontSize = --size + "px";
+        }
+        var tagSize = 64;
+        while (text.scrollHeight > 500 && tagSize > 34) {
+          tag.style.fontSize = --tagSize + "px";
+        }
+        while (text.scrollHeight > 500 && size > 60) {
+          name.style.fontSize = --size + "px";
+        }
+      })();
+    </script>
+  </body>
+</html>
