@@ -266,6 +266,11 @@
                   Buy Stasis &rarr;
                 </button>
                 <span class="buy-price" id="stasis-price"></span>
+                <label class="buy-agree">
+                  <input type="checkbox" id="stasis-agree" />
+                  <span>I agree to the
+                    <a href="/eula/stasis.txt" target="_blank" rel="noopener">Stasis EULA</a></span>
+                </label>
               </span>
             </div>
             <p class="buy-fine">
@@ -933,6 +938,9 @@
         CLIENT_TOKEN: "live_0d53083ea25614aa4422f0f6fd3", // gitleaks:allow (public by design)
         // The Stasis price (pri_...).
         PRICE_ID: "pri_01m5h77ahjkfpcb25gcmb4fj75",
+        // Store `eula_version` of /eula/stasis.txt (first 12 hex of its SHA-256).
+        // Changes only when the EULA text does; then rerun `just eula stasis`.
+        EULA_VERSION: "cd6b6b4ed8ce",
         // Shown beside the button until Paddle localises it.
         PRICE_LABEL: "$29",
         // The blc-store worker that turns purchases into serials.
@@ -986,10 +994,21 @@
             })
             .catch(function () {});
           if (!canSell) return;
-          buy.disabled = false;
+          // Buy waits on the EULA checkbox, and goes back off if it is unticked.
+          var agree = document.getElementById("stasis-agree");
+          function sync() {
+            buy.disabled = !(agree && agree.checked);
+          }
+          if (agree) agree.addEventListener("change", sync);
+          sync();
           buy.addEventListener("click", function () {
+            if (!agree || !agree.checked) return;
             Paddle.Checkout.open({
               items: [{ priceId: STORE.PRICE_ID, quantity: 1 }],
+              customData: {
+                eula: STORE.EULA_VERSION,
+                eula_agreed_at: new Date().toISOString(),
+              },
               settings: {
                 displayMode: "overlay",
                 theme: "light",
