@@ -4,6 +4,7 @@
   --muted: #6b6660;
   --rule: #e7e1d6;
   --accent: #d83a2b;
+  --sticker: #ffd43b;
   --maxw: 1180px;
   --font-sans: -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
@@ -397,6 +398,57 @@ nav > a:hover::after, nav .nav-apps-trigger:hover::after { right: 0; }
   opacity: 1;
 }
 
+/* "Free!" price sticker on a free app's icon (status "free" in the store
+   catalog; scripts/free-check.py keeps index.html in step). The icon is 60%
+   of the square art box, centered (image edge at 20%); a macOS icon's tile
+   starts ~10% into its image, so the sticker centers on the tile's corner. */
+.free-badge {
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--sticker);
+  color: var(--ink);
+  border: 2.5px solid var(--ink);
+  box-shadow:
+    inset 0 0 0 3px var(--sticker),
+    inset 0 0 0 4px rgba(26,24,22,0.35),
+    0 4px 10px rgba(0,0,0,0.22);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  pointer-events: none;
+  user-select: none;
+  transform: translate(-50%, -50%) rotate(-10deg);
+  transition: transform .5s cubic-bezier(.3,1.6,.5,1) .45s, opacity .3s ease .45s;
+}
+/* pops on after its icon reveals; leaves with the icon when screens show */
+.showcase-art img.reveal:not(.is-visible) ~ .free-badge {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.2) rotate(-40deg);
+}
+.showcase-art.has-screens:hover > .free-badge,
+.showcase-art.has-screens.is-showing > .free-badge {
+  opacity: 0;
+  transition-delay: 0s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .free-badge,
+  .showcase-art img.reveal:not(.is-visible) ~ .free-badge {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(-10deg);
+    transition: opacity .3s ease;
+  }
+}
+
 .showcase-eyebrow {
   font-family: var(--font-mono);
   font-size: 12px;
@@ -713,6 +765,7 @@ body.preview .buy-row > .draft-only { display: contents; }
   .showcase[data-side="right"] .showcase-art { order: 1; max-width: 320px; }
   .showcase[data-side="left"] .showcase-text,
   .showcase[data-side="right"] .showcase-text { order: 2; }
+  .free-badge { width: 48px; height: 48px; font-size: 11px; border-width: 2px; }
 }
 
 /* ---- about ---- */

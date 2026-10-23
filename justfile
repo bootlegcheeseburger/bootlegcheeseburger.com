@@ -64,12 +64,13 @@ tool-share-cards *apps:
 tool-contact:
     python3 -I scripts/contact-gen.py
 
-# the gate: site EULAs, STORE EULA_VERSION and the contact page's mailtos match
-# ~/Code/store (also .githooks/pre-push)
+# the gate: site EULAs, STORE EULA_VERSION, the contact page's mailtos and the
+# "Free!" stickers on app cards match ~/Code/store (also .githooks/pre-push)
 [group('dev')]
 dev-check:
     python3 -I scripts/eula-check.py
     python3 -I scripts/contact-check.py
+    python3 -I scripts/free-check.py
 
 # DNS / DNSSEC sanity check
 [group('tool')]
