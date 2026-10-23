@@ -2,15 +2,16 @@
 """The contact page's mailtos never drift from the store's contact templates.
 
 Regenerates contact.html's `contact:gen` regions (the no-JS fallback list and
-the JSON data) from ~/Code/store/gen/contact.json, ~/Code/store/gen/apps.json
-and the site's own index.html (which apps are public), with the same code as
+the JSON data) from <store>/gen/contact.json, <store>/gen/apps.json and the
+site's own index.html (which apps are public), with the same code as
 `just tool-contact` (scripts/contact-gen.py), and fails when the committed page
 differs. Reads only; never writes. Exit 1 on any problem.
 
 Usage: python3 -I scripts/contact-check.py [--rev REV]
   --rev REV  check contact.html and index.html as committed at REV (the
              pre-push hook passes each pushed commit) instead of the working tree.
-Run by `just dev-check` and .githooks/pre-push. The store is found through HOME.
+Run by `just dev-check` and .githooks/pre-push. <store> is the store checkout
+(STORE_REPO, see scripts/store_path.py).
 """
 import difflib
 import importlib.util
@@ -75,7 +76,7 @@ def main(argv):
 
     stale = [name for name in gen.REGIONS if have[name] != want[name]]
     if stale:
-        print(f"contact-check: contact data is stale against ~/Code/store/gen/contact.json{where} "
+        print(f"contact-check: contact data is stale against {gen.CONTACT}{where} "
               f"({gen.PAGE}, region {', '.join(stale)}): {FIX}", file=sys.stderr)
         for name in stale:
             diff = list(difflib.unified_diff(have[name].splitlines(), want[name].splitlines(),

@@ -9,16 +9,17 @@ class) this writes:
                            scripts/share/card.html by headless Chromium
 plus assets/share/site.png, the card index.html's own tags point at.
 
-The tagline comes from the store catalog (~/Code/store/gen/apps.json,
-field `tagline`, owned by ~/Code/store); a public app without one is an
-error. The name comes from .showcase-title and the color from that app's
---card-accent in style.css.
+The tagline comes from the store catalog (<store>/gen/apps.json, field
+`tagline`, owned by the store checkout, STORE_REPO: see scripts/store_path.py);
+a public app without one is an error. The name comes from .showcase-title
+and the color from that app's --card-accent in style.css.
 
 Usage: python3 -I scripts/share-cards.py [app ...]   (no args: all, plus site)
        just tool-share-cards [app ...]
 """
 
 import html
+import importlib.util
 import json
 import re
 import subprocess
@@ -28,7 +29,10 @@ from pathlib import Path
 from urllib.parse import quote, urlencode
 
 ROOT = Path(__file__).resolve().parent.parent
-CATALOG = Path.home() / "Code/store/gen/apps.json"
+_spec = importlib.util.spec_from_file_location("store_path", ROOT / "scripts" / "store_path.py")
+store_path = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(store_path)
+CATALOG = store_path.CATALOG
 CHROMIUM = "/Applications/Chromium.app/Contents/MacOS/Chromium"
 CARD = ROOT / "scripts/share/card.html"
 OUT = ROOT / "assets/share"
@@ -155,7 +159,7 @@ def share_page(app, name, tagline):
 
 def main(wanted):
     if not CATALOG.is_file():
-        die(f"no store catalog at {CATALOG} (clone ~/Code/store and run its gen)")
+        die(f"no store catalog at {CATALOG}: {store_path.NEEDS}, with its gen run")
     catalog = json.loads(CATALOG.read_text())
     if not Path(CHROMIUM).exists():
         die(f"no Chromium at {CHROMIUM}")
@@ -174,7 +178,7 @@ def main(wanted):
             die(f"{app}: not in the store catalog {CATALOG}")
         tagline = (catalog[app].get("tagline") or "").strip()
         if not tagline:
-            die(f"{app}: no tagline in the store catalog (~/Code/store/apps/{app}.toml)")
+            die(f"{app}: no tagline in the store catalog ({store_path.STORE}/apps/{app}.toml)")
         if app not in accent:
             die(f"{app}: no --card-accent for .showcase--{app} in style.css")
         icon = ROOT / f"assets/{app}.png"

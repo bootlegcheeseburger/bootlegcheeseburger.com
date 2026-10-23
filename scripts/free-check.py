@@ -1,30 +1,51 @@
 #!/usr/bin/env python3
-"""The "Free!" stickers on index.html never disagree with the store catalog.
+"""The "Free!" ribbons and the eyebrows' "Free" on index.html never drift from the store catalog.
 
-An app's showcase (`<article id="app-<app>" class="showcase ...">` in
-index.html) carries the sticker (an element with class "free-badge") exactly
-when its entry in ~/Code/store/gen/apps.json has status "free". Each app with a
-free status but no sticker, and each sticker on an app that is not free (or not
-in the catalog), is reported; exit 1 on any. Only apps with a showcase are in
-scope: a free app with no card on the site at all is not an error. Reads only;
-never writes.
+index.html's `free:gen <app> badge|eyebrow` regions (written by
+`just tool-free`, scripts/free-gen.py) are checked against
+<store>/gen/apps.json with the same code. It fails when:
+  1. a region's text differs from what free-gen would write (the ribbon span
+     or "Free &middot; " when the app's `status` is "free", empty otherwise);
+  2. a showcase (`<article id="app-<app>" class="showcase ...">`) of a catalog
+     app lacks its badge region (in `.showcase-art`, right after the icon img)
+     or its eyebrow region (in `.showcase-eyebrow`), or has one twice;
+  3. a region names an app not in the catalog, or sits anywhere but its
+     place in that app's showcase;
+  4. a `free-badge` element sits outside a badge region, or a catalog app's
+     eyebrow says "Free" outside its region, so a hand-placed one cannot slip in;
+  5. the markers are malformed or unbalanced.
+A showcase of an app not in the catalog (a draft card) needs no regions.
+Reads only; never writes. Every problem is reported in one run; exit 1 on any.
 
 Usage: python3 -I scripts/free-check.py [--rev REV]
   --rev REV  check index.html as committed at REV (the pre-push hook passes
              each pushed commit) instead of the working tree.
-Run by `just dev-check` and .githooks/pre-push. The store is found through HOME.
+Run by `just dev-check` and .githooks/pre-push. <store> is the store checkout
+(STORE_REPO, see scripts/store_path.py).
 """
-import json
+import importlib.util
 import os
 import re
 import subprocess
 import sys
 
 SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-STORE = os.path.expanduser("~/Code/store")
+FIX = "run `just tool-free` and commit"
 ARTICLE = re.compile(r"<article\b([^>]*)>(.*?)</article>", re.S)
 APP_ID = re.compile(r'\bid="app-([a-z0-9-]+)"')
-BADGE = re.compile(r'\bclass="[^"]*(?<![\w-])free-badge(?![\w-])[^"]*"')
+SHOWCASE = re.compile(r'\bclass="[^"]*(?<![\w-])showcase(?![\w-])')
+ART = re.compile(r'<div\b[^>]*\bclass="[^"]*(?<![\w-])showcase-art(?![\w-])[^"]*"[^>]*>')
+ICON = re.compile(r"\s*<img\b[^>]*>\s*")
+EYEBROW = re.compile(r'<div\b[^>]*\bclass="[^"]*(?<![\w-])showcase-eyebrow(?![\w-])[^"]*"[^>]*>(.*?)</div>', re.S)
+BADGE = re.compile(r'\bclass="[^"]*(?<![\w-])free-badge(?![\w-])')
+FREE_WORD = re.compile(r"\bFree\b")
+
+
+def load_gen():
+    spec = importlib.util.spec_from_file_location("free_gen", os.path.join(SITE, "scripts", "free-gen.py"))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
 
 
 def read_index(rev):
@@ -38,6 +59,28 @@ def read_index(rev):
     return r.stdout.decode("utf-8") if r.returncode == 0 else None
 
 
+def showcases(page):
+    """{app: (badge_at, eyebrow)} per showcase: badge_at is where the badge
+    region's begin marker belongs (right after the icon img in .showcase-art,
+    or None), eyebrow the (start, end) of the eyebrow's text (or None)."""
+    out = {}
+    for a in ARTICLE.finditer(page):
+        app = APP_ID.search(a.group(1))
+        if not app or not SHOWCASE.search(a.group(1)):
+            continue
+        badge_at = eyebrow = None
+        art = ART.search(page, a.start(2), a.end(2))
+        if art:
+            icon = ICON.match(page, art.end())
+            if icon:
+                badge_at = icon.end()
+        eb = EYEBROW.search(page, a.start(2), a.end(2))
+        if eb:
+            eyebrow = (eb.start(1), eb.end(1))
+        out[app.group(1)] = (badge_at, eyebrow)
+    return out
+
+
 def main(argv):
     rev = None
     if argv[:1] == ["--rev"] and len(argv) == 2:
@@ -46,50 +89,87 @@ def main(argv):
         print(__doc__.strip().split("\n\n")[-1], file=sys.stderr)
         return 2
 
+    gen = load_gen()
+    where = f" at {rev[:12]}" if rev else ""
     try:
-        with open(os.path.join(STORE, "gen", "apps.json"), encoding="utf-8") as f:
-            apps = json.load(f)
-    except (OSError, ValueError) as e:
-        print(f"free-check: cannot read ~/Code/store/gen/apps.json ({e}); needs ~/Code/store beside web", file=sys.stderr)
+        free = gen.free_apps(gen.load_catalog())
+    except gen.GenError as e:
+        print(f"free-check: {e}", file=sys.stderr)
         return 1
 
-    where = f" at {rev[:12]}" if rev else ""
-    html = read_index(rev)
-    if html is None:
+    page = read_index(rev)
+    if page is None:
         print(f"free-check: index.html is missing{where}", file=sys.stderr)
         return 1
+    try:
+        regions = gen.regions_of(page)
+    except gen.GenError as e:
+        print(f"free-check: {e}{where}: fix the markers, then {FIX}", file=sys.stderr)
+        return 1
 
-    # app -> whether its showcase carries the sticker
-    cards = {}
-    for m in ARTICLE.finditer(html):
-        attrs, body = m.group(1), m.group(2)
-        app = APP_ID.search(attrs)
-        if app and re.search(r'\bclass="[^"]*\bshowcase\b', attrs):
-            cards[app.group(1)] = bool(BADGE.search(body))
+    def line(pos):
+        return page.count("\n", 0, pos) + 1
 
-    def status(app):
-        e = apps.get(app)
-        return e.get("status") if isinstance(e, dict) else None
-
+    cards = showcases(page)
     problems = []
-    for app, badged in sorted(cards.items()):
-        free = status(app) == "free"
-        if free and not badged:
-            problems.append(f"{app} is free in ~/Code/store/gen/apps.json but its showcase (#app-{app}) has no "
-                            f'free-badge{where}: add `<span class="free-badge" aria-hidden="true">Free!</span>` '
-                            "after its icon in .showcase-art")
-        elif badged and not free:
-            st = status(app)
-            why = f'status "{st}"' if st else "no catalog entry"
-            problems.append(f"{app} has a free-badge on its showcase (#app-{app}){where} but is not free in "
-                            f"~/Code/store/gen/apps.json ({why}): remove the sticker")
+    seen = {}
+    for app, part, start, end in regions:
+        seen.setdefault((app, part), []).append(start)
+        if app not in free:
+            problems.append(f"index.html:{line(start)}{where}: a free:gen {part} region names {app}, which is not "
+                            "in the store catalog: remove the region")
+            continue
+        begin = start - len(gen.marker(app, part, False))
+        end_marker = end + len(gen.marker(app, part, True))
+        badge_at, eyebrow = cards.get(app, (None, None))
+        if part == "badge" and begin != badge_at:
+            problems.append(f"index.html:{line(start)}{where}: the {app} badge region is not right after the icon "
+                            f"img in #app-{app} .showcase-art: move it there")
+        elif part == "eyebrow" and not (eyebrow and eyebrow[0] <= begin and end_marker <= eyebrow[1]):
+            problems.append(f"index.html:{line(start)}{where}: the {app} eyebrow region is not inside "
+                            f"#app-{app} .showcase-eyebrow: move it there")
+        want = gen.render(part, free[app])
+        if page[start:end] != want:
+            problems.append(f"index.html:{line(start)}{where}: the {app} {part} region is stale against "
+                            f"the store catalog (status {'free' if free[app] else 'not free'}): {FIX}\n"
+                            f"  site:  {page[start:end][:200]!r}\n"
+                            f"  store: {want!r}")
+    for (app, part), starts in seen.items():
+        if len(starts) > 1:
+            problems.append(f"index.html:{line(starts[1])}{where}: {app} has {len(starts)} free:gen {part} regions; "
+                            "keep one")
+    for app, (badge_at, eyebrow) in sorted(cards.items()):
+        if app not in free:
+            continue
+        for part in gen.PARTS:
+            if (app, part) not in seen:
+                place = (".showcase-art, right after the icon img" if part == "badge"
+                         else ".showcase-eyebrow, where \"Free &middot; \" goes")
+                problems.append(f"index.html{where}: {app} is in the store catalog but its showcase "
+                                f"(#app-{app}) has no free:gen {part} region: put "
+                                f"`{gen.marker(app, part, False)}{gen.marker(app, part, True)}` in its {place}, "
+                                f"then {FIX}")
+        if eyebrow:
+            # the eyebrow's text with its regions' contents cut out
+            text, pos = "", eyebrow[0]
+            for _, part, start, end in regions:
+                if part == "eyebrow" and eyebrow[0] <= start and end <= eyebrow[1]:
+                    text, pos = text + page[pos:start], end
+            text += page[pos:eyebrow[1]]
+            if FREE_WORD.search(text):
+                problems.append(f"index.html:{line(eyebrow[0])}{where}: {app}'s eyebrow says \"Free\" outside its "
+                                f"free:gen eyebrow region: remove it (the region writes it), then {FIX}")
+    for m in BADGE.finditer(page):
+        if not any(part == "badge" and start <= m.start() < end for _, part, start, end in regions):
+            problems.append(f"index.html:{line(m.start())}{where}: a free-badge sits outside a free:gen badge "
+                            f"region: remove it (the region writes it), then {FIX}")
 
     for p in problems:
         print(f"free-check: {p}", file=sys.stderr)
     if problems:
         return 1
-    free = sorted(a for a, b in cards.items() if b)
-    print(f"free-check: ok{where} ({', '.join(free) or 'no free apps on the site'})")
+    apps = sorted({a for a, _, _, _ in regions if free.get(a)})
+    print(f"free-check: ok{where} ({', '.join(apps) or 'no free apps on the site'})")
     return 0
 
 

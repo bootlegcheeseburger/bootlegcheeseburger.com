@@ -1,7 +1,13 @@
 # Bootleg Cheeseburger - static site tasks
 # Cloudflare Pages auto-deploys `main`, so pushing `main` is the deploy (`just push`).
 
-import? '~/Code/blc/just/core.just'
+# the shared blc recipes, from the blc checkout beside this one (just resolves
+# import paths against this justfile's directory)
+import? '../../blc/just/core.just'
+
+# the store checkout: STORE_REPO if set, else ../../store, against this
+# directory; exported so the scripts (scripts/store_path.py) resolve the same one
+export STORE_REPO := clean(join(justfile_directory(), env_var_or_default("STORE_REPO", "../../store")))
 
 # serve the site locally with live-reload (vite HMR)
 [group('main')]
@@ -23,7 +29,7 @@ dev-preview port="8000":
 dev-status:
     git status -s
 
-# publish an app's EULA from ~/Code/store/eula (header dropped, never hand-edited):
+# publish an app's EULA from $STORE_REPO/eula (header dropped, never hand-edited):
 # eula/<app>.txt is the current text, eula/<app>/<id>.txt keeps every version,
 # id = first 12 hex of the text's SHA-256 (the same rule as STORE's eula_version);
 # also rewrites the app's tagged EULA_VERSION in index.html's STORE block, if any
@@ -32,8 +38,9 @@ tool-eula app:
     #!/usr/bin/env bash
     set -euo pipefail
     [[ "{{app}}" =~ ^[a-z0-9-]+$ ]] || { echo "bad app name: {{app}}" >&2; exit 1; }
-    src="$HOME/Code/store/eula/{{app}}.txt"
+    src="$STORE_REPO/eula/{{app}}.txt"
     [ -f "$src" ] || { echo "no $src" >&2; exit 1; }
+    python3 -I scripts/eula-check.py --list | grep -qx "{{app}}" || { echo "{{app}}: not a published shared EULA (secret, or not eula \"shared\"); refusing" >&2; exit 1; }
     tmp=$(mktemp); trap 'rm -f "$tmp"' EXIT
     tail -n +3 "$src" > "$tmp"
     id=$(shasum -a 256 "$tmp" | cut -c1-12)
@@ -59,18 +66,63 @@ tool-share-cards *apps:
     python3 -I scripts/share-cards.py {{apps}}
 
 # the contact page's precomputed mailtos (contact.html, between its contact:gen
-# markers) from ~/Code/store/gen/contact.json; never hand-edit them
+# markers) from $STORE_REPO/gen/contact.json; never hand-edit them
 [group('tool')]
 tool-contact:
     python3 -I scripts/contact-gen.py
 
-# the gate: site EULAs, STORE EULA_VERSION, the contact page's mailtos and the
-# "Free!" stickers on app cards match ~/Code/store (also .githooks/pre-push)
+# the license sentence in each app's buy fine print (index.html, between its
+# license:gen markers) from $STORE_REPO/gen/apps.json; never hand-edit it
+[group('tool')]
+tool-license:
+    python3 -I scripts/license-gen.py
+
+# the "Free!" ribbon and the eyebrow's "Free" on each catalog app's card
+# (index.html, between its free:gen badge/eyebrow markers) from the app's
+# status in $STORE_REPO/gen/apps.json; never hand-edit them
+[group('tool')]
+tool-free:
+    python3 -I scripts/free-gen.py
+
+# app price labels (index.html, between its price:gen markers) and the STORE
+# block's `// price:<app>` PRICE_LABEL and PRICE_ID (the id for its ENV) from
+# $STORE_REPO/gen/apps.json; never hand-edit them
+[group('tool')]
+tool-price:
+    python3 -I scripts/price-gen.py
+
+# every store generator in one go: tool-eula for each app with a shared EULA in
+# $STORE_REPO/gen/apps.json, tool-license, tool-price, tool-free, tool-contact,
+# tool-share-cards (all), then dev-check; the one command after a store catalog change
+[group('tool')]
+tool-catalog:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    # shared EULAs minus secret apps (catalog `secret`, or unreleased with no app box)
+    apps=$(python3 -I scripts/eula-check.py --list)
+    for app in $apps; do just tool-eula "$app"; done
+    just tool-license
+    just tool-price
+    just tool-free
+    # tool-contact reads which apps are public from index.html: after the three above
+    just tool-contact
+    # slowest (headless Chromium): last
+    just tool-share-cards
+    just dev-check
+
+# the gate: only catalog apps that are not secret reach the site (app boxes, nav
+# links, icons, share pages and cards), and site EULAs, STORE EULA_VERSION, the
+# contact page's mailtos, the app cards' "Free!" ribbons and eyebrows, the buy
+# fine print's license sentence and the price labels and STORE PRICE_ID match
+# the store checkout, $STORE_REPO (also .githooks/pre-push)
 [group('dev')]
 dev-check:
+    python3 -I scripts/apps-check.py
     python3 -I scripts/eula-check.py
     python3 -I scripts/contact-check.py
     python3 -I scripts/free-check.py
+    python3 -I scripts/license-check.py
+    python3 -I scripts/price-check.py
 
 # DNS / DNSSEC sanity check
 [group('tool')]

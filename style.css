@@ -398,7 +398,7 @@ nav > a:hover::after, nav .nav-apps-trigger:hover::after { right: 0; }
 }
 
 /* "Free!" ribbon across a free app's art box corner (status "free" in the
-   store catalog; scripts/free-check.py keeps index.html in step). The art box
+   store catalog; `just tool-free` writes it, scripts/free-check.py guards it). The art box
    clips it (overflow: hidden); the band's center sits on the box's diagonal. */
 .free-badge {
   position: absolute;
@@ -743,11 +743,9 @@ body.preview .buy-row > .draft-only { display: contents; }
 /* Per-app accent + tinted background */
 .showcase--notetaken { --card-accent: #d83a2b; --bg-tint: #fdf1ee; }
 .showcase--moair     { --card-accent: #2a7de1; --bg-tint: #eef4fc; }
-.showcase--flocha    { --card-accent: #e89a17; --bg-tint: #fcf3e2; }
 .showcase--plupdate  { --card-accent: #7c4dd1; --bg-tint: #f3eefc; }
 .showcase--streampec { --card-accent: #16161a; --bg-tint: #ececee; }
 .showcase--stasis    { --card-accent: #a8541f; --bg-tint: #fbf0e8; }
-.showcase--ucsify    { --card-accent: #1f9d7e; --bg-tint: #e8f5f0; }
 
 @media (max-width: 860px) {
   /* links land with the art just under the masthead, link icon scrolled past */

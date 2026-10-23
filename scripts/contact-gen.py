@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """The contact page's data, precomputed from the store's contact templates.
 
-Reads ~/Code/store/gen/contact.json (the templates, owned by ~/Code/store),
-~/Code/store/gen/apps.json (display names) and index.html (which apps are
-public: an article.showcase without the draft class). Offers an app only when
-it is public here and has an entry in contact.json `apps`.
+Reads <store>/gen/contact.json (the templates, owned by the store checkout,
+STORE_REPO: see scripts/store_path.py), <store>/gen/apps.json (display
+names) and index.html (which apps are public: an article.showcase without the
+draft class). Offers an app only when it is public here and has an entry in
+contact.json `apps`.
 
 It renders one mailto for every valid choice:
   - each public app with each kind in its list (`<app>/<kind>`);
@@ -28,15 +29,19 @@ scripts/contact-check.py imports this file to regenerate and compare.
 """
 
 import html
+import importlib.util
 import json
 import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-STORE = Path.home() / "Code/store"
-CONTACT = STORE / "gen/contact.json"
-CATALOG = STORE / "gen/apps.json"
+_spec = importlib.util.spec_from_file_location("store_path", ROOT / "scripts" / "store_path.py")
+store_path = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(store_path)
+STORE = store_path.STORE
+CONTACT = store_path.CONTACT
+CATALOG = store_path.CATALOG
 PAGE = "contact.html"
 REGIONS = ("fallback", "data")
 UNRESERVED = re.compile(rb"[A-Za-z0-9._~-]")
@@ -117,12 +122,12 @@ def public_apps(index_html):
 
 def load_store():
     if not STORE.is_dir():
-        raise GenError("needs ~/Code/store beside web (~/Code/store/gen/contact.json is the source)")
+        raise GenError(store_path.missing())
     try:
         contact = json.loads(CONTACT.read_text(encoding="utf-8"))
         catalog = json.loads(CATALOG.read_text(encoding="utf-8"))
     except (OSError, ValueError) as e:
-        raise GenError(f"cannot read the store's gen files ({e}); needs ~/Code/store beside web")
+        raise GenError(f"cannot read the store's gen files ({e}); {store_path.NEEDS}")
     return contact, catalog
 
 
@@ -150,7 +155,7 @@ def build(contact, catalog, index_html):
             continue
         name = (catalog.get(slug) or {}).get("name")
         if not isinstance(name, str) or not name:
-            raise GenError(f"{slug} has no name in ~/Code/store/gen/apps.json")
+            raise GenError(f"{slug} has no name in {CATALOG}")
         unknown = [k for k in ks if k not in kinds]
         if unknown:
             raise GenError(f"{slug} lists unknown kinds {unknown}")
