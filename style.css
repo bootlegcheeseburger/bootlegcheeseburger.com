@@ -883,6 +883,7 @@ footer {
 }
 footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
 footer a { color: var(--muted); }
+footer .footer-tm { flex-basis: 100%; font-size: 12px; }
 
 @media (max-width: 540px) {
   nav a { margin-left: 14px; font-size: 14px; }
