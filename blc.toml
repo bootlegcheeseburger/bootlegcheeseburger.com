@@ -1,9 +1,12 @@
-# Shop conventions for this repo. Checked by `just -f ~/Code/blc/justfile deps-check`
-# (and doctor). Tiers: shipped | tool | sandbox (see ~/Code/blc/README.md).
+# Shop conventions for this repo. Checked by blc's `just deps-check` (and doctor).
+# Tiers: shipped | tool | sandbox (see blc's README.md).
 
 [deps]
 tier = "sandbox"
 
-[board]          # epiq: the WWW board in ~/Code/blc (lanes, tags, testdrive, hub live in its [boards.WWW])
-home = "~/Code/blc"
+[repo]
+public = true
+
+[board]          # the WWW board in the blc checkout (lanes, tags, testdrive, hub live in its [boards.WWW])
+home = "../../blc"
 board = "WWW"
