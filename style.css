@@ -420,23 +420,21 @@ nav > a:hover::after, nav .nav-apps-trigger:hover::after { right: 0; }
   pointer-events: none;
   user-select: none;
   transform: rotate(-45deg);
-  transition: transform .45s cubic-bezier(.3,1.4,.5,1) .45s, opacity .3s ease .45s;
+  /* wraps on around the corner with the title underline: same trigger
+     (.is-current), duration and easing; the inset keeps the shadow */
+  clip-path: inset(-8px 100% -8px -8px);
+  transition: clip-path .55s cubic-bezier(.2,.7,.2,1), opacity .3s ease;
 }
-/* slides in after its icon reveals; leaves with the icon when screens show */
-.showcase-art img.reveal:not(.is-visible) ~ .free-badge {
-  opacity: 0;
-  transform: translate(-40px, -40px) rotate(-45deg);
-}
+.showcase.is-current .free-badge { clip-path: inset(-8px -8px -8px -8px); }
+/* leaves with the icon when screens show */
 .showcase-art.has-screens:hover > .free-badge,
 .showcase-art.has-screens.is-showing > .free-badge {
   opacity: 0;
   transition-delay: 0s;
 }
 @media (prefers-reduced-motion: reduce) {
-  .free-badge,
-  .showcase-art img.reveal:not(.is-visible) ~ .free-badge {
-    opacity: 1;
-    transform: rotate(-45deg);
+  .free-badge {
+    clip-path: none;
     transition: opacity .3s ease;
   }
 }
