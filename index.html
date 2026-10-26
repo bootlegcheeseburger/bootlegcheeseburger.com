@@ -32,7 +32,7 @@
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='52' font-size='52'%3E%F0%9F%8D%94%3C/text%3E%3C/svg%3E"
     />
-    <link rel="stylesheet" href="style.css?v=8" />
+    <link rel="stylesheet" href="style.css?v=9" />
   </head>
   <body>
     <header class="masthead">
@@ -253,57 +253,59 @@
             </ul>
             <!-- Buy shows only with ?preview until sales open (paddle-live,
                  VVS6FF7); then drop the public-only span and the draft-only
-                 wrapper. The beta button stays grey until stasis-releases
+                 class (keep its span: a purchase hides it). The beta button stays grey until stasis-releases
                  has a release with a DMG; the release fetch below then fills
                  in its version and link and drops the grey. -->
-            <div class="buy-row">
-              <a
-                class="btn btn--download btn--grey"
-                id="stasis-demo"
-                href="https://updates.bootlegcheeseburger.com/stasis/latest.dmg"
-                data-repo="bootlegcheeseburger/stasis-releases"
-                data-label="Download beta"
-                aria-disabled="true"
-              >
-                <span class="btn-version-label">Download beta</span>
-              </a>
-              <span class="public-only">
-                <button type="button" class="btn btn--grey" disabled>
-                  <!-- price:gen stasis begin -->$29<!-- price:gen stasis end --> &middot; Coming soon
-                </button>
-              </span>
-              <span class="draft-only">
-                <button type="button" class="btn" id="stasis-buy" disabled>
-                  Buy Stasis &rarr;
-                </button>
-                <span class="buy-price" id="stasis-price"></span>
-                <label class="buy-agree" id="stasis-agree-line" hidden>
-                  <input type="checkbox" id="stasis-agree" />
-                  <span>I agree to the
-                    <a href="/eula/stasis.txt" target="_blank" rel="noopener">Stasis EULA</a></span>
-                </label>
-              </span>
-            </div>
-            <p class="buy-fine">
-              <!-- license:gen stasis begin -->No subscription: yours to keep, on up to 2 Macs. Includes 1 year of updates; after that, your version keeps working.<!-- license:gen stasis end -->
-              <a href="refunds.html">30-day refunds</a>.
-              Sold by Paddle, our Merchant of Record.
-              <a href="terms.html">Terms</a> &middot;
-              <a href="privacy.html">Privacy</a>
-            </p>
-            <div class="stasis-thanks" id="stasis-thanks" aria-live="polite" hidden>
-              <strong>Thank you!</strong>
-              <p id="stasis-thanks-status">Making your serial...</p>
-              <div id="stasis-thanks-ready" hidden>
-                <p class="serial-line">
-                  <span class="serial" id="stasis-serial"></span>
-                  <button type="button" class="serial-copy" id="stasis-copy">Copy</button>
-                </p>
-                <p>
-                  <a id="stasis-download" href="#">Download Stasis</a>, open it,
-                  paste the serial and press Activate. A copy is on its way to
-                  your email.
-                </p>
+            <div class="buy" data-app="stasis">
+              <div class="buy-row">
+                <a
+                  class="btn btn--download btn--grey"
+                  id="stasis-demo"
+                  href="https://updates.bootlegcheeseburger.com/stasis/latest.dmg"
+                  data-repo="bootlegcheeseburger/stasis-releases"
+                  data-label="Download beta"
+                  aria-disabled="true"
+                >
+                  <span class="btn-version-label">Download beta</span>
+                </a>
+                <span class="public-only">
+                  <button type="button" class="btn btn--grey" disabled>
+                    <!-- price:gen stasis begin -->$29<!-- price:gen stasis end --> &middot; Coming soon
+                  </button>
+                </span>
+                <span class="draft-only">
+                  <button type="button" class="btn" data-buy disabled>
+                    Buy Stasis &rarr;
+                  </button>
+                  <span class="buy-price" data-price></span>
+                  <label class="buy-agree" hidden>
+                    <input type="checkbox" data-agree />
+                    <span>I agree to the
+                      <a href="/eula/stasis.txt" target="_blank" rel="noopener">Stasis EULA</a></span>
+                  </label>
+                </span>
+              </div>
+              <p class="buy-fine">
+                <!-- license:gen stasis begin -->No subscription: yours to keep, on up to 2 Macs. Includes 1 year of updates; after that, your version keeps working.<!-- license:gen stasis end -->
+                <a href="refunds.html">30-day refunds</a>.
+                Sold by Paddle, our Merchant of Record.
+                <a href="terms.html">Terms</a> &middot;
+                <a href="privacy.html">Privacy</a>
+              </p>
+              <div class="buy-thanks" aria-live="polite" hidden>
+                <strong>Thank you! <span aria-hidden="true">&#x1F389;</span></strong>
+                <p data-thanks-status>Making your serial...</p>
+                <div data-thanks-ready hidden>
+                  <p class="serial-line">
+                    <span class="serial" data-serial></span>
+                    <button type="button" class="serial-copy" data-copy>Copy</button>
+                  </p>
+                  <p>
+                    <a data-download href="#">Download Stasis</a>, open it,
+                    paste the serial and press Activate. A copy is on its way to
+                    your email.
+                  </p>
+                </div>
               </div>
             </div>
             <div class="showcase-note">
@@ -918,38 +920,53 @@
       })();
     </script>
     <script>
-      // Stasis store, live (paddle-live). For sandbox testing set ENV to
+      // The store, live (paddle-live). For sandbox testing set ENV to
       // "sandbox" and the test_ token, then run `just tool-price` for the
-      // sandbox price id (Paddle sandbox and live are separate accounts with
+      // sandbox price ids (Paddle sandbox and live are separate accounts with
       // separate ids).
       var STORE = {
         ENV: "production",
         // Paddle > Developer tools > Authentication > client-side token (test_... in sandbox).
         CLIENT_TOKEN: "live_0d53083ea25614aa4422f0f6fd3", // gitleaks:allow (public by design)
-        // The Stasis price (pri_...).
-        // Written by `just tool-price` (the id for ENV), never by hand.
-        PRICE_ID: "pri_01m5h77ahjkfpcb25gcmb4fj75", // price:stasis
-        // Store `eula_version` of /eula/stasis.txt (first 12 hex of its SHA-256).
-        // Written by `just tool-eula stasis`, never by hand; the `// eula:<app>` tag
-        // names the app (scripts/eula-check.py fails on drift).
-        EULA_VERSION: "cd6b6b4ed8ce", // eula:stasis
-        // Shown beside the button until Paddle localises it.
-        // Written by `just tool-price`, never by hand.
-        PRICE_LABEL: "$29", // price:stasis
         // The blc-store worker that turns purchases into serials.
         WORKER: "https://store.bootlegcheeseburger.com",
+        // One entry per paid app, keyed by the data-app of its `.buy` box.
+        APPS: {
+          stasis: {
+            // The Stasis price (pri_...).
+            // Written by `just tool-price` (the id for ENV), never by hand.
+            PRICE_ID: "pri_01m5h77ahjkfpcb25gcmb4fj75", // price:stasis
+            // Store `eula_version` of /eula/stasis.txt (first 12 hex of its SHA-256).
+            // Written by `just tool-eula stasis`, never by hand; the `// eula:<app>` tag
+            // names the app (scripts/eula-check.py fails on drift).
+            EULA_VERSION: "cd6b6b4ed8ce", // eula:stasis
+            // Shown beside the button until Paddle localises it.
+            // Written by `just tool-price`, never by hand.
+            PRICE_LABEL: "$29", // price:stasis
+          },
+        },
       };
 
+      // The buy kit: every `.buy[data-app]` box whose app is in STORE.APPS
+      // gets its price, the EULA tick box, a Paddle checkout and, once paid,
+      // the thank-you panel with the serial.
       (function () {
-        var buy = document.getElementById("stasis-buy");
-        if (!buy) return;
-        var price = document.getElementById("stasis-price");
-        if (STORE.PRICE_LABEL) price.textContent = STORE.PRICE_LABEL;
         // Buying needs the worker that turns a purchase into a serial; until
-        // it is deployed the button stays "Coming soon".
+        // it is deployed the buttons stay "Coming soon".
         var canSell = STORE.WORKER && !/\.example\./.test(STORE.WORKER);
-        if (!canSell) buy.textContent = "Coming soon";
-        if (!STORE.CLIENT_TOKEN || !STORE.PRICE_ID) return;
+        var boxes = [];
+        var lastOpened = null;
+        document.querySelectorAll(".buy[data-app]").forEach(function (root) {
+          var app = STORE.APPS[root.getAttribute("data-app")];
+          var buy = root.querySelector("[data-buy]");
+          if (!app || !buy) return;
+          var price = root.querySelector("[data-price]");
+          if (app.PRICE_LABEL && price) price.textContent = app.PRICE_LABEL;
+          if (!canSell) buy.textContent = "Coming soon";
+          if (app.PRICE_ID)
+            boxes.push({ root: root, app: app, buy: buy, price: price });
+        });
+        if (!STORE.CLIENT_TOKEN || !boxes.length) return;
 
         // Paddle.js loads on every visit once configured: Paddle's default
         // payment link opens this page with ?_ptxn=..., and Initialize is
@@ -965,20 +982,43 @@
             token: STORE.CLIENT_TOKEN,
             eventCallback: function (e) {
               if (e.name === "checkout.completed" && e.data) {
+                var box = boxFor(e.data);
+                if (!box) return;
                 var email = e.data.customer && e.data.customer.email;
-                fetchSerial(e.data.transaction_id, email);
+                fetchSerial(box, e.data.transaction_id, email);
               }
             },
           });
+          boxes.forEach(wire);
+        }
+
+        // The box a completed checkout bought from: by the price ids in its
+        // items, else the box whose checkout opened last, else the only box.
+        function boxFor(data) {
+          var items = data.items || [];
+          for (var i = 0; i < items.length; i++) {
+            var it = items[i];
+            var id = it.price_id || (it.price && it.price.id);
+            for (var j = 0; j < boxes.length; j++) {
+              if (id && boxes[j].app.PRICE_ID === id) return boxes[j];
+            }
+          }
+          return lastOpened || (boxes.length === 1 ? boxes[0] : null);
+        }
+
+        function wire(box) {
+          var app = box.app;
+          var buy = box.buy;
+          var price = box.price;
           // The localised price for the buyer's country. US and Canadian
           // buyers expect sales tax added at checkout, so they see the price
           // before tax; elsewhere prices are shown with tax included.
           Paddle.PricePreview({
-            items: [{ priceId: STORE.PRICE_ID, quantity: 1 }],
+            items: [{ priceId: app.PRICE_ID, quantity: 1 }],
           })
             .then(function (r) {
               var li = r.data.details.lineItems[0];
-              if (!li) return;
+              if (!li || !price) return;
               var country = r.data.address && r.data.address.countryCode;
               var preTax = country === "US" || country === "CA";
               // Whole amounts drop Paddle's ".00" to match PRICE_LABEL ("$29").
@@ -987,11 +1027,21 @@
               ).replace(/[.,]00(?!\d)/, "");
             })
             .catch(function () {});
+
+          var copy = box.root.querySelector("[data-copy]");
+          if (copy)
+            copy.addEventListener("click", function () {
+              navigator.clipboard.writeText(
+                box.root.querySelector("[data-serial]").textContent,
+              );
+              this.textContent = "Copied";
+            });
+
           if (!canSell) return;
           // The first Buy click only reveals the EULA checkbox; from then on
           // Buy waits on it, and goes back off if it is unticked.
-          var agree = document.getElementById("stasis-agree");
-          var agreeLine = document.getElementById("stasis-agree-line");
+          var agree = box.root.querySelector("[data-agree]");
+          var agreeLine = box.root.querySelector(".buy-agree");
           if (!agree || !agreeLine) return;
           function sync() {
             buy.disabled = !agreeLine.hidden && !agree.checked;
@@ -1006,10 +1056,11 @@
               return;
             }
             if (!agree.checked) return;
+            lastOpened = box;
             Paddle.Checkout.open({
-              items: [{ priceId: STORE.PRICE_ID, quantity: 1 }],
+              items: [{ priceId: app.PRICE_ID, quantity: 1 }],
               customData: {
-                eula: STORE.EULA_VERSION,
+                eula: app.EULA_VERSION,
                 eula_agreed_at: new Date().toISOString(),
               },
               settings: {
@@ -1023,14 +1074,17 @@
 
         // The serial is made by the worker when Paddle's webhook lands, a
         // moment after the checkout completes: ask until it is there.
-        function fetchSerial(txn, email) {
-          var box = document.getElementById("stasis-thanks");
-          var status = document.getElementById("stasis-thanks-status");
+        function fetchSerial(box, txn, email) {
+          var panel = box.root.querySelector(".buy-thanks");
+          if (!panel) return;
+          var status = panel.querySelector("[data-thanks-status]");
           // Bought: the thank-you panel replaces Buy, its price and the EULA
-          // line (the beta download stays).
-          buy.parentNode.hidden = true;
-          box.hidden = false;
-          box.scrollIntoView({ behavior: "smooth", block: "center" });
+          // line (their shared wrapper; the beta download stays).
+          box.buy.parentNode.hidden = true;
+          var first = panel.hidden;
+          panel.hidden = false;
+          panel.scrollIntoView({ behavior: "smooth", block: "center" });
+          if (first) celebrate(panel);
           if (!txn || !email) {
             status.textContent = "Your serial is on its way to your email.";
             return;
@@ -1052,18 +1106,16 @@
                   status.hidden = true;
                   // One box per group, so a narrow screen wraps only at
                   // the hyphens; textContent stays the whole serial.
-                  var el = document.getElementById("stasis-serial");
+                  var el = panel.querySelector("[data-serial]");
                   el.textContent = "";
                   j.serial.split("-").forEach(function (g, i, all) {
                     var part = document.createElement("span");
                     part.textContent = i < all.length - 1 ? g + "-" : g;
                     el.appendChild(part);
                   });
-                  if (j.download)
-                    document.getElementById("stasis-download").href =
-                      j.download;
-                  document.getElementById("stasis-thanks-ready").hidden =
-                    false;
+                  var dl = panel.querySelector("[data-download]");
+                  if (j.download && dl) dl.href = j.download;
+                  panel.querySelector("[data-thanks-ready]").hidden = false;
                 } else if (++tries < 30) {
                   setTimeout(ask, 2000);
                 } else {
@@ -1077,14 +1129,40 @@
           })();
         }
 
-        document
-          .getElementById("stasis-copy")
-          .addEventListener("click", function () {
-            navigator.clipboard.writeText(
-              document.getElementById("stasis-serial").textContent,
-            );
-            this.textContent = "Copied";
-          });
+        // A one-shot burst of burgers and party poppers from the top of `el`
+        // (position: relative). The glyphs live in an aria-hidden layer that
+        // is removed once they fade; the showcase clips them (overflow:
+        // hidden), so they never widen the page. Skipped for reduced motion.
+        function celebrate(el) {
+          if (
+            window.matchMedia &&
+            window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          )
+            return;
+          var glyphs = ["\uD83C\uDF54", "\uD83C\uDF89"]; // hamburger, party popper
+          var n = 13;
+          var layer = document.createElement("span");
+          layer.className = "celebrate";
+          layer.setAttribute("aria-hidden", "true");
+          for (var i = 0; i < n; i++) {
+            var p = document.createElement("span");
+            p.textContent = glyphs[i % 2];
+            // Fan out over the upper half (-165deg to -15deg), jittered.
+            var deg = -165 + (150 * i) / (n - 1) + (Math.random() - 0.5) * 18;
+            var rad = (deg * Math.PI) / 180;
+            var dist = 80 + Math.random() * 80;
+            p.style.setProperty("--x", 30 + Math.random() * 40 + "%");
+            p.style.setProperty("--dx", Math.round(Math.cos(rad) * dist) + "px");
+            p.style.setProperty("--dy", Math.round(Math.sin(rad) * dist) + "px");
+            p.style.setProperty("--rot", Math.round((Math.random() - 0.5) * 140) + "deg");
+            p.style.animationDelay = Math.round(Math.random() * 90) + "ms";
+            layer.appendChild(p);
+          }
+          el.appendChild(layer);
+          setTimeout(function () {
+            if (layer.parentNode) layer.parentNode.removeChild(layer);
+          }, 1500);
+        }
       })();
     </script>
   </body>

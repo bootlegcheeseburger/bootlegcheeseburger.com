@@ -653,7 +653,8 @@ button.btn {
   color: var(--muted);
 }
 
-/* ---- buy row + post-purchase serial (Stasis) ---- */
+/* ---- buy kit: buy row, EULA line, thank-you panel with serial ----
+   one `.buy[data-app]` box per paid app (STORE.APPS in index.html) */
 .buy-row {
   display: flex;
   align-items: center;
@@ -688,13 +689,15 @@ body.preview .buy-row > .draft-only[hidden] { display: none; }
 }
 .buy-agree input { width: 16px; height: 16px; margin: 0; }
 .buy-agree[hidden] { display: none; }
-.showcase-text > p.buy-fine {
+.showcase-text .buy > p.buy-fine {
   font-size: 14px;
   line-height: 1.5;
+  color: var(--muted);
   margin: 14px 0 0;
   max-width: 460px;
 }
-.stasis-thanks {
+.buy-thanks {
+  position: relative;
   margin-top: 22px;
   padding: 18px 20px;
   border-radius: 12px;
@@ -703,14 +706,14 @@ body.preview .buy-row > .draft-only[hidden] { display: none; }
   font-size: 15px;
   animation: beta-in .35s cubic-bezier(.2,.7,.2,1);
 }
-.showcase-text .stasis-thanks p {
+.showcase-text .buy-thanks p {
   font-size: 15px;
   color: var(--ink);
   margin: 8px 0 0;
 }
 /* serial and Copy side by side; the serial fits one line on desktop and
    wraps only between its groups (one span each) on phones */
-.showcase-text .stasis-thanks p.serial-line {
+.showcase-text .buy-thanks p.serial-line {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -733,6 +736,32 @@ body.preview .buy-row > .draft-only[hidden] { display: none; }
   border-radius: 999px;
   padding: 6px 12px;
   cursor: pointer;
+}
+/* one-shot purchase burst (celebrate() in index.html): glyphs fly up and
+   out from the panel's top; the showcase's overflow: hidden clips them */
+.celebrate {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 0;
+  pointer-events: none;
+}
+.celebrate > span {
+  position: absolute;
+  left: var(--x, 50%);
+  top: 0;
+  font-size: 22px;
+  line-height: 1;
+  opacity: 0;
+  animation: celebrate-burst 1.2s cubic-bezier(.2,.7,.3,1) forwards;
+}
+@keyframes celebrate-burst {
+  0%   { opacity: 0; transform: translate(-50%, 0) scale(.4) rotate(0deg); }
+  12%  { opacity: 1; }
+  60%  { opacity: 1; transform: translate(calc(-50% + var(--dx)), var(--dy)) scale(1) rotate(var(--rot)); }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--dx) * 1.15), calc(var(--dy) + 28px)) scale(.9) rotate(calc(var(--rot) * 1.4)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .celebrate { display: none; }
 }
 
 .nav-gh {
