@@ -30,36 +30,36 @@ consent.
 
 Without an activated serial, the Software runs as a free demo, limited to
 the first 10 seconds of each file you open. You use the demo under this
-Agreement, but sections 3 to 6 and 11 (serials and Macs, activation,
+Agreement, but sections 3 to 6 and 11 (serials and computers, activation,
 updates, free and beta serials, and purchases and refunds) do not apply to
 it.
 
-Buying a serial and activating it on a Mac lifts the limit on that Mac in
-place. You do not need to reinstall the Software.
+Buying a serial and activating it on a computer lifts the limit on that
+computer in place. You do not need to reinstall the Software.
 
-3. Serials and Macs
+3. Serials and computers
 
 Your license comes with a serial. A serial may be active on up to two (2)
-Macs at one time, used only by you. Activating a Mac uses one of the
-serial's seats. You can deactivate a Mac from within the Software, which
-frees its seat for another Mac.
+computers at one time, used only by you. Activating a computer uses one of
+the serial's seats. You can deactivate a computer from within the Software,
+which frees its seat for another computer.
 
 4. Activation and license checks
 
 The Software checks your serial with our licensing service when you activate
-a Mac and from time to time afterwards, such as when it starts with an
-internet connection. A check sends your serial, a one-way hash of your Mac's
-hardware identifier (never the identifier itself) and the Software's name
-and version; activating a Mac also sends the Mac's name. A check never sends
-your files or their contents. Our Privacy Notice explains what we keep and
-why.
+a computer and from time to time afterwards, such as when it starts with an
+internet connection. A check sends your serial, a one-way hash of your
+computer's hardware identifier (never the identifier itself) and the
+Software's name and version; activating a computer also sends the computer's
+name. A check never sends your files or their contents. Our Privacy Notice
+explains what we keep and why.
 
-There is no offline limit. Once a Mac is activated, the Software keeps
+There is no offline limit. Once a computer is activated, the Software keeps
 working without an internet connection for as long as you like. Your license
-status on a Mac changes only when the Software reaches our licensing service
-and receives a verified answer, for example that the serial has been
-suspended or that the Mac's seat has been released. A failed check, or no
-connection at all, never stops the Software.
+status on a computer changes only when the Software reaches our licensing
+service and receives a verified answer, for example that the serial has been
+suspended or that the computer's seat has been released. A failed check, or
+no connection at all, never stops the Software.
 
 5. Updates
 
@@ -95,8 +95,9 @@ force.
 
 You may not:
 
-- copy the Software except to install it on a Mac (you may install it on any
-  Mac, but use beyond the demo needs a serial activated on that Mac);
+- copy the Software except to install it on a computer (you may install it
+  on any computer, but use beyond the demo needs a serial activated on that
+  computer);
 - redistribute, sell, sublicense, rent, lease, lend or publish the Software
   or any part of it;
 - modify the Software or create derivative works of it;
@@ -141,21 +142,21 @@ Our order process is conducted by our online reseller Paddle.com, the
 Merchant of Record for all our orders, which handles payment, tax and
 refunds. Our Refund Policy explains how to get a refund. A refunded or
 charged-back purchase ends its license: we suspend the serial, and the
-Software returns to the demo on each Mac activated with it the next time it
-checks the serial online; use beyond the demo stops.
+Software returns to the demo on each computer activated with it the next
+time it checks the serial online; use beyond the demo stops.
 
 12. Suspension and termination
 
 We may suspend or end your license if you materially breach this Agreement,
 if payment is not received or is refunded or charged back, or if we
 reasonably suspect fraud or a security risk. A suspension takes effect on
-each Mac the next time the Software checks your serial online. From then
-until the suspension is lifted, the Software runs as the demo on that Mac.
-You may stop using the Software at any time.
+each computer the next time the Software checks your serial online. From
+then until the suspension is lifted, the Software runs as the demo on that
+computer. You may stop using the Software at any time.
 
-When your license ends, the Software returns to the demo on your Macs, and
-you must stop using it beyond the demo. Sections 8 and 13 to 18 survive the
-end of your license.
+When your license ends, the Software returns to the demo on your computers,
+and you must stop using it beyond the demo. Sections 8 and 13 to 18 survive
+the end of your license.
 
 13. No warranty
 

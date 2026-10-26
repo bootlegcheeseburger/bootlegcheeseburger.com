@@ -26,29 +26,29 @@ A license is for one person. It is not a site, team or per-seat license. You
 may not share, sell, rent, lend or transfer your serial without our written
 consent.
 
-2. Serials and Macs
+2. Serials and computers
 
 Your license comes with a serial. A serial may be active on up to two (2)
-Macs at one time, used only by you. Activating a Mac uses one of the
-serial's seats. You can deactivate a Mac from within the Software, which
-frees its seat for another Mac.
+computers at one time, used only by you. Activating a computer uses one of
+the serial's seats. You can deactivate a computer from within the Software,
+which frees its seat for another computer.
 
 3. Activation and license checks
 
 The Software checks your serial with our licensing service when you activate
-a Mac and from time to time afterwards, such as when it starts with an
-internet connection. A check sends your serial, a one-way hash of your Mac's
-hardware identifier (never the identifier itself) and the Software's name
-and version; activating a Mac also sends the Mac's name. A check never sends
-your files or their contents. Our Privacy Notice explains what we keep and
-why.
+a computer and from time to time afterwards, such as when it starts with an
+internet connection. A check sends your serial, a one-way hash of your
+computer's hardware identifier (never the identifier itself) and the
+Software's name and version; activating a computer also sends the computer's
+name. A check never sends your files or their contents. Our Privacy Notice
+explains what we keep and why.
 
-There is no offline limit. Once a Mac is activated, the Software keeps
+There is no offline limit. Once a computer is activated, the Software keeps
 working without an internet connection for as long as you like. Your license
-status on a Mac changes only when the Software reaches our licensing service
-and receives a verified answer, for example that the serial has been
-suspended or that the Mac's seat has been released. A failed check, or no
-connection at all, never stops the Software.
+status on a computer changes only when the Software reaches our licensing
+service and receives a verified answer, for example that the serial has been
+suspended or that the computer's seat has been released. A failed check, or
+no connection at all, never stops the Software.
 
 4. Updates
 
@@ -84,7 +84,7 @@ force.
 
 You may not:
 
-- copy the Software except to install it on your activated Macs;
+- copy the Software except to install it on your activated computers;
 - redistribute, sell, sublicense, rent, lease, lend or publish the Software
   or any part of it;
 - modify the Software or create derivative works of it;
@@ -129,20 +129,20 @@ Our order process is conducted by our online reseller Paddle.com, the
 Merchant of Record for all our orders, which handles payment, tax and
 refunds. Our Refund Policy explains how to get a refund. A refunded or
 charged-back purchase ends its license: we suspend the serial, and the
-Software stops working on each Mac activated with it the next time it checks
-the serial online.
+Software stops working on each computer activated with it the next time it
+checks the serial online.
 
 11. Suspension and termination
 
 We may suspend or end your license if you materially breach this Agreement,
 if payment is not received or is refunded or charged back, or if we
 reasonably suspect fraud or a security risk. A suspension takes effect on
-each Mac the next time the Software checks your serial online. You may stop
-using the Software at any time.
+each computer the next time the Software checks your serial online. You may
+stop using the Software at any time.
 
-When your license ends, the Software stops working on your Macs, and you
-must stop using it and delete your copies. Sections 7 and 12 to 17 survive
-the end of your license.
+When your license ends, the Software stops working on your computers, and
+you must stop using it and delete your copies. Sections 7 and 12 to 17
+survive the end of your license.
 
 12. No warranty
 

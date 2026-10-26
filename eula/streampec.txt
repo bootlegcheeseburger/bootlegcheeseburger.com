@@ -33,7 +33,7 @@ remove features.
 
 You may not:
 
-- copy the Software except to install it on your Macs;
+- copy the Software except to install it on your computers;
 - redistribute, sell, sublicense, rent, lease, lend or publish the Software
   or any part of it;
 - modify the Software or create derivative works of it;
