@@ -667,7 +667,7 @@
           <a href="refunds.html">Refunds</a> &middot;
           <a href="mailto:support@bootlegcheeseburger.com">support@bootlegcheeseburger.com</a></span
         >
-        <small class="footer-tm">NoteTaken&trade;, Stasis&trade;, Stasis Engine&trade;, and AAW&trade; are trademarks of Bootleg Cheeseburger, LLC. All other trademarks are the property of their respective owners; their mention does not imply affiliation or endorsement.</small>
+        <small class="footer-tm">NoteTaken&trade;, Stasis&trade;, Stasis Engine&trade;, and AAW&trade; are trademarks of Bootleg Cheeseburger, LLC. Other product and company names are trademarks of their respective owners; their mention does not imply affiliation or endorsement.</small>
       </div>
     </footer>
 
@@ -995,6 +995,10 @@
             boxes.push({ root: root, app: app, buy: buy, price: price });
         });
         if (!STORE.CLIENT_TOKEN || !boxes.length) return;
+        // Until sales open Paddle.js loads only with
+        // ?preview, so no checkout can open on the public page, not even
+        // from a payment link. When sales open, drop this line.
+        if (!document.body.classList.contains("preview")) return;
 
         // Paddle.js loads on every visit once configured: Paddle's default
         // payment link opens this page with ?_ptxn=..., and Initialize is
