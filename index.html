@@ -1131,13 +1131,12 @@
           }
           var tries = 0;
           (function ask() {
-            fetch(
-              STORE.WORKER +
-                "/order?txn=" +
-                encodeURIComponent(txn) +
-                "&email=" +
-                encodeURIComponent(email),
-            )
+            // POST, so the buyer's email never sits in a URL or a log.
+            fetch(STORE.WORKER + "/order", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ txn: txn, email: email }),
+            })
               .then(function (r) {
                 return r.json();
               })
