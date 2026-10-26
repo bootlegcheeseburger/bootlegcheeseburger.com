@@ -154,7 +154,7 @@ until the suspension is lifted, the Software runs as the demo on that Mac.
 You may stop using the Software at any time.
 
 When your license ends, the Software returns to the demo on your Macs, and
-you must stop using it beyond the demo. Sections 8 and 13 to 16 survive the
+you must stop using it beyond the demo. Sections 8 and 13 to 18 survive the
 end of your license.
 
 13. No warranty
@@ -162,23 +162,49 @@ end of your license.
 TO THE FULLEST EXTENT THE LAW ALLOWS, THE SOFTWARE IS PROVIDED "AS IS" AND
 "AS AVAILABLE", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
 THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
-AND NON-INFRINGEMENT. WE DO NOT WARRANT THAT THE SOFTWARE WILL BE
-UNINTERRUPTED OR ERROR-FREE.
+AND NON-INFRINGEMENT. WE MAKE THIS DISCLAIMER ON OUR OWN BEHALF AND ON
+BEHALF OF OUR LICENSORS AND SUPPLIERS. NEITHER WE NOR OUR LICENSORS OR
+SUPPLIERS WARRANT THAT THE SOFTWARE WILL BE UNINTERRUPTED OR ERROR-FREE.
 
 14. Limitation of liability
 
-TO THE FULLEST EXTENT THE LAW ALLOWS, WE ARE NOT LIABLE FOR ANY INDIRECT,
-INCIDENTAL, SPECIAL, CONSEQUENTIAL OR PUNITIVE DAMAGES, OR FOR LOST PROFITS,
-LOST DATA OR WORK, CORRUPTED SESSIONS OR FILES, HEARING DAMAGE OR DAMAGE TO
-EQUIPMENT, ARISING FROM THE SOFTWARE OR ITS USE, EVEN IF WE WERE ADVISED OF
-THE POSSIBILITY. OUR TOTAL LIABILITY FOR ANY CLAIM IS LIMITED TO THE AMOUNT
-YOU PAID FOR THE SOFTWARE, OR US$50 IF YOU PAID NOTHING.
+TO THE FULLEST EXTENT THE LAW ALLOWS, NEITHER WE NOR OUR LICENSORS OR
+SUPPLIERS ARE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR
+PUNITIVE DAMAGES, OR FOR LOST PROFITS, LOST DATA OR WORK, CORRUPTED SESSIONS
+OR FILES, HEARING DAMAGE OR DAMAGE TO EQUIPMENT, ARISING FROM THE SOFTWARE
+OR ITS USE, EVEN IF WE OR THEY WERE ADVISED OF THE POSSIBILITY. OUR TOTAL
+LIABILITY FOR ANY CLAIM IS LIMITED TO THE AMOUNT YOU PAID FOR THE SOFTWARE,
+OR US$50 IF YOU PAID NOTHING.
 
 Nothing in this Agreement limits or excludes any right you have as a
 consumer that cannot be limited or excluded by contract under the law where
 you live.
 
-15. Governing law
+15. Export control and sanctions
+
+The Software is subject to the export control and economic sanctions laws of
+the United States, including the Export Administration Regulations (EAR) and
+the sanctions administered by the US Treasury's Office of Foreign Assets
+Control (OFAC), and may be subject to those of other countries. You will not
+export, re-export or transfer the Software, directly or indirectly, to any
+country or region under a US embargo or comprehensive sanctions, or to any
+person on a US government list of restricted or prohibited parties, and you
+will not use the Software for any end use those laws prohibit, such as the
+design, development or production of nuclear, chemical or biological weapons
+or missiles. You represent that you are not located in, or ordinarily
+resident in, such a country or region, and that you are not on such a list
+or owned or controlled by anyone who is.
+
+16. US government end users
+
+The Software and its documentation are "commercial computer software" and
+"commercial computer software documentation", as those terms are used in FAR
+12.212 and, where applicable, DFARS 227.7202 and 252.227-7015. Consistent
+with those regulations, the Software is licensed to US government end users
+only as a commercial product, and with only the rights that this Agreement
+grants to every other user.
+
+17. Governing law
 
 This Agreement is governed by the laws of the State of New York, United
 States, without regard to its conflict-of-laws rules. Disputes are handled
@@ -186,7 +212,7 @@ as our Terms and Conditions set out. If you are a consumer, you keep any
 right to bring a claim in the courts where you live and the protection of
 any mandatory law of your country.
 
-16. General
+18. General
 
 You may not assign or transfer your rights under this Agreement without our
 written consent. This Agreement, together with our Terms and Conditions,
@@ -194,7 +220,7 @@ Privacy Notice and Refund Policy, is the entire agreement between you and us
 about the Software. If any part of it is found unenforceable, the rest stays
 in effect. If we do not enforce a right, we have not waived it.
 
-17. Contact
+19. Contact
 
 Bootleg Cheeseburger, LLC. Write to support@bootlegcheeseburger.com, or see
 https://bootlegcheeseburger.com.
