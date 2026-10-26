@@ -583,6 +583,8 @@ nav > a:hover::after, nav .nav-apps-trigger:hover::after { right: 0; }
   color: var(--accent);
   margin: 0;
 }
+/* small print under a sign-up form (privacy link) */
+.beta-fine { font-size: 13px; line-height: 1.5; color: var(--muted); }
 .beta-success {
   margin: 12px 0 0;
   padding: 12px 16px;
