@@ -15,7 +15,7 @@ and writes them into contact.html between its `contact:gen` markers:
   - `data`: the JSON the page script reads (kinds, apps, mailtos).
 The browser does no templating; it only picks a precomputed URL.
 
-Rendering matches blc-kit's blc-contact (crates/blc-contact, 1a971c3):
+Rendering matches the shop crates' blc-contact (crates/blc-contact, 1a971c3):
 {app} is the app's display name; {version} {build} {macos} {serial_last4}
 and any unknown placeholder are blank. An empty version writes the subject
 tag as `[App]`; with no app the site also drops the tag, `[{app}] `, so the

@@ -7,6 +7,6 @@ tier = "sandbox"
 [repo]
 public = true
 
-[board]          # the WWW board in the blc checkout (lanes, tags, testdrive, hub live in its [boards.WWW])
-home = "../../blc"
+[board]          # the WWW board in the shop tooling (lanes, tags, testdrive, hub live in its [boards.WWW])
+home = "shop"
 board = "WWW"

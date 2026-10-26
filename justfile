@@ -1,13 +1,10 @@
 # Bootleg Cheeseburger - static site tasks
 # Cloudflare Pages auto-deploys `main`, so pushing `main` is the deploy (`just push`).
 
-# the shared blc recipes, from the blc checkout beside this one (just resolves
-# import paths against this justfile's directory)
-import? '../../blc/just/core.just'
-
-# the store checkout: STORE_REPO if set, else ../../store, against this
-# directory; exported so the scripts (scripts/store_path.py) resolve the same one
-export STORE_REPO := clean(join(justfile_directory(), env_var_or_default("STORE_REPO", "../../store")))
+# the shared shop recipes, through .blc (a gitignored link to the shop tooling,
+# made by its post-checkout hook or `just tool-link`). They also export
+# STORE_REPO, the store checkout every script here reads (scripts/store_path.py).
+import? '.blc/just/core.just'
 
 # serve the site locally with live-reload (vite HMR)
 [group('main')]
