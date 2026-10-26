@@ -32,7 +32,7 @@
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='52' font-size='52'%3E%F0%9F%8D%94%3C/text%3E%3C/svg%3E"
     />
-    <link rel="stylesheet" href="style.css?v=9" />
+    <link rel="stylesheet" href="style.css?v=10" />
   </head>
   <body>
     <header class="masthead">
@@ -235,7 +235,13 @@
             <div class="showcase-eyebrow">macOS &middot; <!-- free:gen stasis eyebrow begin --><!-- free:gen stasis eyebrow end -->utility</div>
             <h2 class="showcase-title">Stasis</h2>
             <p class="showcase-tag">Time flies.</p>
-            <p>
+            <p class="has-term">
+              Meet the world's first
+              <span class="term"><button type="button" class="term-word" aria-describedby="def-aaw">AAW&trade;</button><span class="term-def" id="def-aaw" role="tooltip">
+                  <span class="term-head"><strong>AAW</strong> <span class="term-say">/aw/</span> <em>noun</em></span>
+                  Analog audio workstation. Like a DAW, minus the D.
+                  <span class="term-eg">as in: &ldquo;aww, it sounds like real tape.&rdquo;</span>
+                </span></span>.
               A real virtual tape deck, powered by a completely unique audio
               algorithm that I dreamed up back in music school. Our
               proprietary Stasis Engine&trade; allows authentic analog
@@ -639,7 +645,7 @@
           <a href="refunds.html">Refunds</a> &middot;
           <a href="mailto:support@bootlegcheeseburger.com">support@bootlegcheeseburger.com</a></span
         >
-        <small class="footer-tm">NoteTaken&trade;, Stasis&trade;, and Stasis Engine&trade; are trademarks of Bootleg Cheeseburger, LLC. All other trademarks are the property of their respective owners.</small>
+        <small class="footer-tm">NoteTaken&trade;, Stasis&trade;, Stasis Engine&trade;, and AAW&trade; are trademarks of Bootleg Cheeseburger, LLC. All other trademarks are the property of their respective owners.</small>
       </div>
     </footer>
 
@@ -1164,6 +1170,24 @@
           }, 1500);
         }
       })();
+
+      // Escape closes a dictionary popup (.term) opened by hover or focus.
+      document.addEventListener("keydown", function (e) {
+        if (e.key !== "Escape") return;
+        var open = document.activeElement;
+        if (open && open.classList.contains("term-word")) open.blur();
+        document.querySelectorAll(".term").forEach(function (t) {
+          t.classList.add("is-dismissed");
+        });
+      });
+      document.querySelectorAll(".term").forEach(function (t) {
+        t.addEventListener("mouseleave", function () {
+          t.classList.remove("is-dismissed");
+        });
+        t.addEventListener("focusin", function () {
+          t.classList.remove("is-dismissed");
+        });
+      });
     </script>
   </body>
 </html>

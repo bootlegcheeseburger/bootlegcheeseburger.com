@@ -764,6 +764,66 @@ body.preview .buy-row > .draft-only[hidden] { display: none; }
   .celebrate { display: none; }
 }
 
+/* dictionary popup on a coined term (Stasis: AAW). The popup hangs above
+   the paragraph's first line (p.has-term), so it never runs off a phone */
+.has-term { position: relative; }
+.term-word {
+  font: inherit;
+  font-weight: 700;
+  color: var(--ink);
+  padding: 0 2px;
+  margin: 0;
+  border: 0;
+  border-bottom: 1.5px dotted var(--card-accent, var(--accent));
+  border-radius: 2px;
+  background: linear-gradient(transparent 55%,
+    color-mix(in srgb, var(--card-accent, var(--accent)) 28%, transparent) 55%);
+  cursor: help;
+}
+.term-def {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 8px);
+  z-index: 5;
+  display: block;
+  width: max-content;
+  max-width: min(320px, 100%);
+  padding: 12px 14px;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(26, 24, 22, .12);
+  font-size: 15px;
+  line-height: 1.45;
+  font-weight: 400;
+  color: var(--ink);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition: opacity .15s, transform .15s, visibility 0s .15s;
+}
+.term:hover .term-def,
+.term:focus-within .term-def {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity .15s, transform .15s;
+}
+.term.is-dismissed .term-def { opacity: 0; visibility: hidden; }
+/* wide screens: hang it from the word itself */
+@media (min-width: 900px) {
+  .term { position: relative; }
+  .term-def { left: -8px; max-width: none; width: 300px; }
+}
+.term-head { display: block; margin-bottom: 4px; }
+.term-head strong { font-size: 17px; }
+.term-say { font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
+.term-head em { color: var(--muted); }
+.term-eg { display: block; margin-top: 6px; font-style: italic; color: var(--muted); }
+@media (prefers-reduced-motion: reduce) {
+  .term-def { transition: none; transform: none; }
+}
+
 .nav-gh {
   margin-left: 18px !important;
   display: inline-flex;
