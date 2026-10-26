@@ -32,7 +32,7 @@
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='52' font-size='52'%3E%F0%9F%8D%94%3C/text%3E%3C/svg%3E"
     />
-    <link rel="stylesheet" href="style.css?v=7" />
+    <link rel="stylesheet" href="style.css?v=8" />
   </head>
   <body>
     <header class="masthead">
@@ -295,7 +295,7 @@
               <strong>Thank you!</strong>
               <p id="stasis-thanks-status">Making your serial...</p>
               <div id="stasis-thanks-ready" hidden>
-                <p>
+                <p class="serial-line">
                   <span class="serial" id="stasis-serial"></span>
                   <button type="button" class="serial-copy" id="stasis-copy">Copy</button>
                 </p>
@@ -981,9 +981,10 @@
               if (!li) return;
               var country = r.data.address && r.data.address.countryCode;
               var preTax = country === "US" || country === "CA";
-              price.textContent = preTax
-                ? li.formattedTotals.subtotal
-                : li.formattedTotals.total;
+              // Whole amounts drop Paddle's ".00" to match PRICE_LABEL ("$29").
+              price.textContent = (
+                preTax ? li.formattedTotals.subtotal : li.formattedTotals.total
+              ).replace(/[.,]00(?!\d)/, "");
             })
             .catch(function () {});
           if (!canSell) return;
@@ -1025,6 +1026,9 @@
         function fetchSerial(txn, email) {
           var box = document.getElementById("stasis-thanks");
           var status = document.getElementById("stasis-thanks-status");
+          // Bought: the thank-you panel replaces Buy, its price and the EULA
+          // line (the beta download stays).
+          buy.parentNode.hidden = true;
           box.hidden = false;
           box.scrollIntoView({ behavior: "smooth", block: "center" });
           if (!txn || !email) {
@@ -1046,8 +1050,15 @@
               .then(function (j) {
                 if (j.status === "ready") {
                   status.hidden = true;
-                  document.getElementById("stasis-serial").textContent =
-                    j.serial;
+                  // One box per group, so a narrow screen wraps only at
+                  // the hyphens; textContent stays the whole serial.
+                  var el = document.getElementById("stasis-serial");
+                  el.textContent = "";
+                  j.serial.split("-").forEach(function (g, i, all) {
+                    var part = document.createElement("span");
+                    part.textContent = i < all.length - 1 ? g + "-" : g;
+                    el.appendChild(part);
+                  });
                   if (j.download)
                     document.getElementById("stasis-download").href =
                       j.download;

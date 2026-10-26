@@ -675,6 +675,8 @@ a.btn.btn--grey { pointer-events: none; cursor: default; }
 /* public/draft halves of one buy row lay out as direct flex items */
 .buy-row > .public-only,
 body.preview .buy-row > .draft-only { display: contents; }
+/* after a purchase the thank-you panel replaces Buy, price and EULA line */
+body.preview .buy-row > .draft-only[hidden] { display: none; }
 /* EULA consent: its own line under the buttons; Buy waits on it */
 .buy-agree {
   flex-basis: 100%;
@@ -706,18 +708,25 @@ body.preview .buy-row > .draft-only { display: contents; }
   color: var(--ink);
   margin: 8px 0 0;
 }
+/* serial and Copy side by side; the serial fits one line on desktop and
+   wraps only between its groups (one span each) on phones */
+.showcase-text .stasis-thanks p.serial-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 .serial {
-  font: 600 18px var(--font-mono);
-  letter-spacing: 0.06em;
+  font: 600 15px var(--font-mono);
+  letter-spacing: 0.02em;
   padding: 8px 12px;
   background: #fff;
   border-radius: 8px;
-  display: inline-block;
+  min-width: 0;
   user-select: all;
-  word-break: break-all;
 }
+.serial > span { display: inline-block; }
 .serial-copy {
-  margin-left: 8px;
+  flex: none;
   font: 600 13px var(--font-sans);
   border: 1px solid var(--rule);
   background: #fff;
