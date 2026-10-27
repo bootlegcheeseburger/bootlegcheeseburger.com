@@ -1,0 +1,7 @@
+# Security reports for bootlegcheeseburger.com and Bootleg Cheeseburger apps.
+Contact: mailto:security@bootlegcheeseburger.com
+Contact: https://github.com/bootlegcheeseburger/bootlegcheeseburger.com/security/advisories/new
+Expires: 2027-10-27T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://bootlegcheeseburger.com/.well-known/security.txt
+Policy: https://github.com/bootlegcheeseburger/bootlegcheeseburger.com/blob/main/SECURITY.md
